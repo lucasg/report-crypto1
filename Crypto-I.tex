@@ -1,0 +1,55 @@
+\documentclass[a4paper,12pt]{book}
+
+%% Packages %%
+
+
+	%Retaille les marges
+	\usepackage[top=2.54cm, bottom=2.54cm, left=2.54cm, right=2.54cm]{geometry}
+	
+	%Selection langue française
+	%\usepackage[latin1]{inputenc} % encodage du code source (utile sous Linux, pas sous Windows)	
+	\usepackage[cyr]{aeguill} % rajoute les caractères éèà etc.
+	\usepackage[francais]{babel} % évite de faire pleurer Miktex à chaque caractère accentuée rencontré
+	\usepackage{textcomp} % utile, mais je sais plus pourquoi
+	
+	%Pour insérer des graphiques
+	\usepackage{graphicx}
+	\usepackage{subfig}
+	\DeclareGraphicsExtensions{.pdf,.png,.PNG,.jpg,.jpeg} 
+	\graphicspath{ {./images/} } %Va chercher les images dans / et /images
+	
+	%Pour insérer des documents pdf dans le latex
+	\usepackage{pdfpages} 
+	
+	%Pour gérer les citations du style author-date
+	\usepackage[round]{natbib}
+	
+	%Pour insérer des tables excels en tex (macro)
+	\usepackage{exceltex}
+	\usepackage{booktabs} % Pour faire des tableaux plus jolis
+	\usepackage{array}
+
+
+%Alias HRule pour tracer un trait
+\newcommand{\HRule}{\rule{0.95\textwidth}{0.5mm}}
+% alias noi = noindent
+\newcommand{\noi}{\noindent}
+%alias pour XOR op.
+\newcommand{\xor}{\oplus}
+
+
+\title{Cryptology I}
+
+\begin{document}
+
+\maketitle
+
+
+\tableofcontents
+
+
+
+
+\include{introduction}
+
+\end{document}
