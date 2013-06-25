@@ -64,57 +64,7 @@ cipher => substation cipher.\\
 
 
 
-\chapter{Theory}
 
-\section{Perfect Secrecy}
-Perfect secrecy si pour tout messages m1,m2 tel que len(m1= len(m2), 
-Pr[E(k,m1) = c] = Pr[E(k,m2)=c] (k uniform in K)
-Or “ Given a cypher text, I cannot tell if it closer to m1 or m2”  (no cypher text only attacks, but others attacks possible)
-Corollaire : |ensKeys| => |ensMsg|
-
-A communication system has a perfect secrecy if, for all message $m1$ and $m2$ such as $len(m1)$ = $len(m2)$ :  $ Pr[E(k,m1) = c]$ = $Pr[E(k,m2)=c]$ (k chosen uniformely in K).
-In plain words, this means that , given a ciphertext,  an attacker cannot tell if it's closer to m1 or m2.
-
-\section{Pseudo Random Generator (PRG)} 
-$ G : {0,1}^s -> {0,1}^n $  with  $n>>s$, with unpredictability prorperty
-G is deterministic, but the seed S is random
-Stream ciphers : $c = m \oplus G(k) $  (one time pad with pseudorandom generator )
-
-
-\chapter{Ciphers}
-
-
-\section{One-Time Pad}
-
-\subsection{XOR operator}
-
-$\oplus$ : XOR operator (logic gate). Widely used in cryptography
-
-\begin{table}[ht!]
-	\centering
-		\begin{tabular}{c|c|c}
-			$A$ & $B$ & $A\xor B$ \\
-			\hline
-			0 & 0 & 0 \\
-			0 & 1 & 1 \\
-			1 & 0 & 1 \\
-			1 & 1 & 0 \\
-			\hline 
-		\end{tabular}
-	\caption{Table of logic for XOR}
-	\label{tab:TableOfLogicForXOR}
-\end{table}
-
-
-\subsection{Cipher}
-	$ E(k,m) = c = k \oplus m $ 
-	$ D(k,c ) = m = k \oplus c$
-	
-	
-\subsection{Vulnerabilities}
-
-Facile a cracker une fois qu'on a un m et son c => k = m XOR c
-Toutefois OTP a une perfect secrecy
 
 
 

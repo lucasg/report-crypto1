@@ -1,0 +1,39 @@
+\chapter{Standards Ciphers}
+
+
+\section{One-Time Pad}
+
+\subsection{XOR operator}
+
+$\oplus$ : XOR operator (logic gate). Widely used in cryptography
+
+\begin{table}[ht!]
+	\centering
+		\begin{tabular}{c|c|c}
+			$A$ & $B$ & $A\xor B$ \\
+			\hline
+			0 & 0 & 0 \\
+			0 & 1 & 1 \\
+			1 & 0 & 1 \\
+			1 & 1 & 0 \\
+			\hline 
+		\end{tabular}
+	\caption{Table of logic for XOR}
+	\label{tab:TableOfLogicForXOR}
+\end{table}
+
+
+\subsection{Cipher}
+	$ E(k,m) = c = k \oplus m $ 
+	$ D(k,c ) = m = k \oplus c$
+	
+	
+\subsection{Vulnerabilities}
+
+Facile a cracker une fois qu'on a un m et son c => k = m XOR c
+Toutefois OTP a une perfect secrecy
+
+
+\section{Data Encryption Standard (DES)}
+\subsection{Feistel Network}
+\subsection{DESx}
