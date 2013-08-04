@@ -1,0 +1,5 @@
+# Git Ignore file
+# Everything we don't want to track
+
+#Output Folder
+build
