@@ -1,30 +1,122 @@
 \chapter{Theory}
 
-\section{Perfect Secrecy}
-Perfect secrecy si pour tout messages m1,m2 tel que len(m1= len(m2), 
-Pr[E(k,m1) = c] = Pr[E(k,m2)=c] (k uniform in K)
-Or “ Given a cypher text, I cannot tell if it closer to m1 or m2”  (no cypher text only attacks, but others attacks possible)
-Corollaire : |ensKeys| => |ensMsg|
+\section{Definitions}
 
-A communication system has a perfect secrecy if, for all message $m1$ and $m2$ such as $len(m1)$ = $len(m2)$ :  $ Pr[E(k,m1) = c]$ = $Pr[E(k,m2)=c]$ (k chosen uniformely in K).
-In plain words, this means that , given a ciphertext,  an attacker cannot tell if it's closer to m1 or m2.
+\subsection{Symmetric Ciphers}
 
-\section{Pseudo Random Generator (PRG)} 
-$ G : {0,1}^s -> {0,1}^n $  with  $n>>s$, with unpredictability prorperty
+\begin{mydef}
+\begin{minipage}[t]{0.8\textwidth}
+    A cipher is symmetric if the encryption $E$ and the decryption $D$ use the same key $k$.
+\end{minipage}
+\end{mydef}
+
+The symmetric-key encryption is the oldest class of cryptography process. The major flaw of symmetric ciphers is the obligation for both parties (sender and receiver) to share the secret (the key). Nowadays, it is recommended to use non-symmetric encryption (also known as public-key encryption).
+
+\subsection{Computationnally equivalence}
+Definition : two distributions $P_1$ and $P_2$ are compuationnally equivalent if , for every "efficient" polynomial statistical test A, \\
+
+$ | Pr[A(X) == 1  - Pr[A(X) == 1] |  $ \\
+$   X <- P_1      X <- P_2              $ \\
+X chosen uniformément dans les distributions.
+
+\section{Probability Remainder}
+
+\section{ Pseudo-Random Generation }
+
+\subsection{ Definitions }
+\subsubsection{Statistical test for Randomness}
+
+In cryptography, the randomness-like property for a bit generator is an important one (see unpredictability). That's why a lot of different statistical test were conceived to separate true pseudo-random generator from broken ones.
+
+For example : Frequency analysis for uniform distribution, autocorrelation, Chi-square test, ...
+
+\subsubsection{Advantage}
+The advantage Adv over a certain function is a statistical test A such as : 
+
+$Adv_{F} [A,G] = | Pr[A(G(k)) == 1  - Pr[A(r) == 1] | $
+                   %pseudo-randomness      %randomness
+                     
+An advantage "close to one" is considered to break the Pseudorandom function, because the test A can distinguish pseudorandomness from true randomness.
+
+\subsubsection{indistinguishability}
+
+
+\subsubsection{Random Oracle}
+
+
+
+\subsection{Pseudo-Random Functions     (PRF)}
+
+A pseudo-random function is a fairly easily computable function (~polynomial) which simulate randomness while being completely deterministic.
+
+\subsubsection{Definition}
+
+$F : KxD ->  R$ 
+K : key space
+D : Function Domain
+R : Range
+
+The function F is a PRF if no efficient adversary with significant advantage can distinguish F from a random oracle. Pseudorandom functions are vital tools in the construction of cryptographic primitives.
+
+\subsection{Pseudo-Random Permutation   (PRP)}
+
+
+\subsubsection{Definition}
+
+$E : KxX -> X$
+A PRP differs from a PRF : the domain D and the range R are the same. Since the function map the two same sets, we can deduce that $E(k,.)$ ( k is fixed) is bijective : it is a permutation then.
+A major propriety of the PRP (comparatevily to the PRF) is that the PRP can be inverted, thus improving the decoding speed.
+
+
+\subsection{Pseudo Random Generator     (PRG)} 
+
+NB : ne pas confondre PRG et PRNG
+
+\subsubsection{Definition}
+
+$ G : {0,1}^s -> {0,1}^n $  with  $n>>s$, with unpredictability property
 G is deterministic, but the seed S is random
 Stream ciphers : $c = m \oplus G(k) $  (one time pad with pseudorandom generator )
 
 
-\subsection{Advantage}
-\subsection{Indishguability}
-\subsection{Secure PRG}
+\subsubsection{Secure PRG}
+A PRG is secure if, for all "efficient" statistical test A, Adv(A,G) is negligible.
 
-\section{Pseudo-Random Permutation (PRP)}
-
-\section{Ciphers}
-\subsection{Semantic security}
-\subsection{Block Cipher}
-\subsubsection{Construction}
+Efficient = not degenerated
+Of course we don't know all the existing efficient statistical tests so we can't prove that PRG is secure, only that we didn't found an efficient test which break it.
 
 
+\section{Confidentiality}
+\subsection{Perfect Secrecy}
 
+\begin{mytheorem}[Shannon perfect secrecy]
+    $\forall m_1,m_2$ such as $len(m_1) = len(m_2)$, 
+    $Pr[E(k,m_1) = c] = Pr[E(k,m_2) = c]$  \flushright (k uniform in K)
+\end{mytheorem}
+
+In layman terms, perfect secrecy means that, given two messages and the ciphertext of one of the two plaintext messages, the attacker cannot know from which message the ciphertext has been created (equal probability). A corrollary is, under perfect secrecy conditions, the key space $K$ cardinality must be equal or larger than the ciphertext space $C$ cardinality, which has to be equal or larger than the message space $M$ cardinality :
+\begin{mytheorem}[Shannon perfect secrecy corollary]
+    $ |M| \leq |C| \leq |K| $. 
+\end{mytheorem}
+
+
+\subsection{Semantic Security}
+
+The semantic security is a weaker form of Shannon's perfect secrecy (which is not usable in reality) : the distributions $P_1 = Pr[E(k,m_1) = c , k<- K]$ and $P_2$ does not have to be equal, just computationnaly equivalent.
+
+\subsubsection{Evesdropping adversary}
+    The proof for semantic security is to consider two messages $m_1$ and $m_2$. The encoder choose randomly which message to encrypt : $C_i = E( f(m_i,i), k)$ with $i = {0,1}$ .
+The attacker (or opponent) has access to $C_i$, but cannot modify it 
+
+\subsubsection{Theorem}
+
+\begin{mytheorem}[Semantic Security]
+    $E$ is semantically secure if, for all adversary A, $Adv_{SS}[A,E]$ is negligible.
+\end{mytheorem}
+
+
+\section{Integrity}
+\subsection{Secure MAC}
+
+
+\section{Number Theory}

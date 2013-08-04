@@ -1,55 +1,117 @@
-\documentclass[a4paper,12pt]{book}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% DOCUMENT %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% fleqn = left align equations
+\documentclass[fleqn,a4paper,12pt]{book}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Packages %%
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 	%Retaille les marges
 	\usepackage[top=2.54cm, bottom=2.54cm, left=2.54cm, right=2.54cm]{geometry}
 	
-	%Selection langue française
+	%Selection langue franï¿½aise
 	%\usepackage[latin1]{inputenc} % encodage du code source (utile sous Linux, pas sous Windows)	
-	\usepackage[cyr]{aeguill} % rajoute les caractères éèà etc.
-	\usepackage[francais]{babel} % évite de faire pleurer Miktex à chaque caractère accentuée rencontré
+	\usepackage[cyr]{aeguill} % rajoute les caractï¿½res ï¿½ï¿½ï¿½ etc.
+	\usepackage[english]{babel} % ï¿½vite de faire pleurer Miktex ï¿½ chaque caractï¿½re accentuï¿½e rencontrï¿½
 	\usepackage{textcomp} % utile, mais je sais plus pourquoi
+    
+    %Package pour formules mathÃ©matiques
+    \usepackage{amsmath}
+    \usepackage[amsmath]{ntheorem}  % Mise en page des theorem
+    \usepackage{stmaryrd}           % Ajout des crochets pour intervalles entiers
+
 	
-	%Pour insérer des graphiques
+	%Pour insï¿½rer des graphiques
 	\usepackage{graphicx}
-	\usepackage{subfig}
 	\DeclareGraphicsExtensions{.pdf,.png,.PNG,.jpg,.jpeg} 
 	\graphicspath{ {./images/} } %Va chercher les images dans / et /images
+    
+    %long-centered captions
+    \usepackage[justification=centering]{caption}
+    \usepackage{subcaption}
 	
-	%Pour insérer des documents pdf dans le latex
+	%Pour insï¿½rer des documents pdf dans le latex
 	\usepackage{pdfpages} 
 	
-	%Pour gérer les citations du style author-date
+	%Pour gï¿½rer les citations du style author-date
 	\usepackage[round]{natbib}
 	
-	%Pour insérer des tables excels en tex (macro)
-	\usepackage{exceltex}
+	%Pour insï¿½rer des tables excels en tex (macro)
+	% \usepackage{exceltex}
 	\usepackage{booktabs} % Pour faire des tableaux plus jolis
 	\usepackage{array}
+    
+    %Pour inserer du code
+    \usepackage{listings}
+    
+    %Pour insÃ©rer des liens URL et des liens intradocument
+    \usepackage{hyperref}
+    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  Styles
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% Code Printing configuration
+\lstset{
+    language=Python,
+    basicstyle=\small\sffamily,
+    numbers=left,
+    numberstyle=\tiny,
+}
+
+% Definition and Theorem configuration
+\newtheorem{mydef}{Definition}
+
+\theoremstyle{break}                  % passage Ã  la ligne 
+\newtheorem{mytheorem}{Theorem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %Alias HRule pour tracer un trait
 \newcommand{\HRule}{\rule{0.95\textwidth}{0.5mm}}
 % alias noi = noindent
 \newcommand{\noi}{\noindent}
+% on enlÃ¨ve toute indentation
+\setlength\parindent{0pt}
 %alias pour XOR op.
 \newcommand{\xor}{\oplus}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Title Page
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Cryptography I - Notes \vfill}
+\author{lucasg}
 
-\title{Cryptology I}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% BODY
 \begin{document}
 
 \maketitle
 
+%Abstract
+\vspace*{6cm}
+\hfill
+\begin{minipage}[c]{0.6\linewidth}
+    \begin{flushright}
+    These notes are based upon the free Coursera Course called "Cryptography I", teached by Dan Boneh from Standford, as well as information gathered from Wikipedia. It's  a personal project from an amateur in the domain : it is not exempt from errors and imprecisions. This document was written using ShareLatex, a really powerful web-based editor, and shared using Github (lucasg/crypto-report1).
+    \end{flushright}
+\end{minipage}
+
+
 
 \tableofcontents
 
-
-
-
 \include{introduction}
+\include{theory}
+\include{attacks}
+\include{ciphers}
+\include{key-exchange}
 
 \end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

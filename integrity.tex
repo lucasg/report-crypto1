@@ -1,0 +1,34 @@
+\chapter{Integrity}
+
+
+This chapter will present the other aspect of cryptography : tampering prevention. An adversary can be able to do more than just eavesdropping : he can actually modify ciphertext messages on-the-go (using fro example a Man in the Middle attack). Therefore we need methods to ensure the non modification of the message during transmission.
+
+\section{Message Authentification Code (MAC)}
+
+The most common way to enfore message integrity is to add a tag to the message, which will be verified upon reception. Moreover, the tag needs to be created using a secret key in order to prevent the attacker from fooling the verification algorithm.
+
+$MAC = (S,V)$
+S : Tag Generator
+    $S: (k,m) -> t$
+V : Verification Algorithm
+    $V(k,m,t) -> {0,1}$
+    
+\subsection{Construction from PRF}
+
+A secure MAC can be easily constructed from a PRF family. The following theorem is important since a lot of real-world MAC use it, in various environment (Internet, Banks, Defense, ..).
+
+\begin{mytheorem}
+    IF $F:K\times X \leftarrow Y$ is a secure PRF and $card(Y)$ is large, then $I_F = (F, V_F)$ is a secure MAC and : \\
+    $ Adv_{MAC} \leq Adv_{PRF} + \frac{1}{|Y|} $
+\end{mytheorem}
+
+
+\subsection{CBC-MAC}
+\subsection{HMAC}
+\subsection{NMAC}
+\subsection{PMAC}
+\subsection{Carter-Wegman MAC}
+
+
+\section{Collision Resistance}
+\section{Compression functions}

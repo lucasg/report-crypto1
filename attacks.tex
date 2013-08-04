@@ -1,8 +1,125 @@
 \chapter{Attack Vectors}
 
 \section{Attacks on the implementation}
+Attacks from analysis the source code : buffer overflows, stack overflows, ...
+
+Analysis of the time and power required to encode/decode messages (using oscillos and multimeters).
+
 \section{Fault Attacks}
-\section{Linear and Differential Attacks}
+Using laser to provoke run-time segfault (by twiddling the RAM bits). The aim is to create computing errors which can reveal informations about the key.
+
 \section{Exhaustive Search Attack}
+    The Exhaustive search attack, or brute-force attacks, is to try every key possible until we retreive the plaintext message.
+    Some ciphers are unfortunately weak against such crude attacks : the DES is one fo them.
+    
+\subsection{Definition}
+Goal : given $(m_i,c_i)$ in $[1,N]$ (with N a small integer), find key k.
+
+\subsection{DES Challenge (by RSA)}
+The aim of the DES Challenge is to find the key given three messages and their encryption.
+97 -> 3 months using Internet-distributed computation ("cloud").
+98 -> 3 days using EFF's deep crack
+99 -> 22 hours
+06 -> 7 days using 10 k\$'s FPGAs.
+
+\subsection{Prevention}
+You only way to prevent a cipher from ESA is to augment the key size until no existing computation power can break the cipher in a reasonnable time (like centuries).
+
+\section{Meet in the middle attacks}
+
+\subsection{Example}
+We went from DES (broken cipher) to 3-DES directly because 2-DES is insecure from MitM attacks.
+
+Def : Find $k = (k_1,k_2)$ such as $E(k_1,E(k_2,m)) == c$, in other terms : $E(k_2,m) = D(k_1,m) $.
+$k_1$ and $k_2$ are independant keys, so we are back on simple DES Exhaustive Search attack.
+
+\subsection{Definition}
+
+\section{Linear and Differential Attacks}
+\subsection{Linear Attacks}
+\subsection{Differential Attacks}
+
 
 \section{Quantum attacks}
+
+\subsection{ Generic Search Problem}
+
+Def : Let f : X -> {0,1}
+              x ->   b
+find x in X such that f(x) == true
+
+On classical computer, the best generic algorithm is linear ( O(|X|) ) whereas on a quantum computer, it's root-squared ( O($|X|^{\frac{1}{2}}$).
+
+The practical consequence of quantum computing over cryptography is to halve the key space : a way to prevent ciphers from quantum attacks is to double the key space ( a 1024-key RSA cipher is as strong against quantum computers as a 512-key RSA cipher against classical computers).
+
+
+\section{Collision attacks}
+
+When talking about collision resistance, it is important to speak about the Birthday Paradox which stipulates that there are way more random collisions than you would guess.
+
+\subsection{Generic Birthday attacks}
+
+The Birthday Paradox rest upon the following question : given a random group of people, what's the odds of having at least two persons with the same birthday ? The question is equivalent of estimating the probability of a collision from the output of a bounded random number generator.\\
+
+Intuitively, we would think that the odds grow linearly with the group's size whereas, in reality, the odds grow way faster : when the group has 23 person, there is a 50\% chance of a collision ! The paradox lies here : you only need of tenth of sample from the random pool to have a fairly high chance of collision, which is not intuitive (we would rather think of needing half of the pool - more or less 180 persons -  to have a 50\% chance).
+
+\begin{figure}[ht!]
+    \centering
+   	\includegraphics[width=\textwidth]{images/Birthday_Paradox.pdf}
+	\caption{Probability of a match, according to the group's size \\ source : Wikipedia}
+	\label{fig:BirthdayParadox}
+\end{figure}
+
+\begin{mytheorem}[Birthday Paradox]
+Let $r_1,r_2,...r_n in {1,...B}$ n independant integers chosen uniformely, \\
+Then, when $n = 1.2\times B^{\frac{1}{2}}$, $Pr[collision] \geq \frac{1}{2} $
+\end{mytheorem}
+
+The mathematical proof of this theorem is fairly simple : let compute the probability $Q(n,B)$ of not having a collision given n persons and B possible birthdays. Q can be seen as multiples draws without duplicates : \\
+\begin{align}
+    Q(n,B) =& 1 \times \frac{B-1}{B} \times ... \times \frac{B-n}{B} \\
+           =& \frac{B!}{(B-n)!*B^n} \\
+\end{align}  
+
+$P(n,B)$, the probability of having a birthday collision given n persons and B possible birth dates, is $Q(n,b)$ complement. \\
+Using Taylor series expansion we can rewrite $\frac{B-k}{B}$ as $e^{\frac{-k}{B}}$. 
+
+\begin{align}
+    Q(n,B) =& \prod_{k = 0}^n e^{\frac{-k}{B}}      \\
+           =& e^{\sum_{k = 0}^n \frac{k}{B}}        \\
+           =& e^{ \frac{-(\frac{*n(n-1)}{2})}{B} }  \\
+    P(n,B) \simeq& 1 - e^{ \frac{-n^2}{2*B} }       
+\end{align}  
+
+
+Using the previous relation, we can easily compute $P(n,B) \geq 0.5$ and find the result presented in the theorem.\\
+
+The attackers take advantage of the fact that a fairly low number of random guess have a reasonable chance for one of them of being correct. For example, there was a DNS spoofing method using it : \\
+
+\begin{figure}[ht!]
+    \centering
+       \includegraphics[width=\textwidth]{images/dns_spoofing_birthday.jpg}
+	\caption{DNS Spoofing using multiple queries and Birthday Paradox \\ source : http://www.technicalinfo.net}
+	\label{fig:DNSSpoofingBirthday}
+\end{figure}
+
+The attacker's aim is to trick the DNS cache server into thinking that the IP of www.mybank.com is the spoofed server's one, not the real one. This attack is used for phishing : as soon as the DNS cache server is compromized, users connecting to www.mybank.com will send their credentials to the attackers. \\
+In order to do so, the attacker will send multiple queries : each DNS resolution is accompagnied with a transaction ID which identify the query. The attacker's goal is to send resolution answers from ihis server with the correct transaction ID. The spoofed server send multiple resolution answers with random transaction ID. Since a DNS transaction ID is coded on 2 bytes, the pool of ID is no larger than 65535 : the birthday theorem stipule that, with $n = 1.2 * \frac{\sqrt{65535}}{2}  = 153$  \footnote{ $n$ resolution queries$ + n$ anwsers $= 2*n$ total queries where looking for collision }queries, the attack has a 50\% chance of succes\footnote{with 400 queries, the probability is over 99\%}. To further improve the probability of success, the attacker can also cripple the other server (the real one) with DDOS or bad routed paquets in order to prevent him from sending a correct DNS resolution answer.
+
+\section{Social Attacks}
+
+Crypto attacks target the weakest link of a system : sometimes it is the human nature the weakest link. This finding led to the famous "social engineering" attacks and the less known (but way more dangerous) rubberhose attacks.
+
+\subsection{Social Engineering}
+
+Social Engineering descirbe a motley crew of methods designed to "punching a hole" into a system from the inside, without informing the insider of what he has done. \\\\
+The most famous example is to leave some booby-trapped pendrives (and even more creative methods 
+\footnote{ A mouse device with modified firmware was sent as a gift to tech-based company employees for a security test : \url{ http://www.theregister.co.uk/2011/06/27/mission_impossible_mouse_attack/}.  }
+) on the company site and hope for one employee to plug it in his workstation . Once it is plugged, the rigged pendrive which usually contains a Trojan, execute its script in order to obtain a priviledge escalation from within the system and connect to the attacker then.\\\\
+A new type of Social Engineering has arisen with the emergence of social networks (Facebook, LinkedIn, ...) : in this type of attackes, the goal is to obtain a remote account of a target using infos about disseminated around the Web (email adresses, universities he has been, birthday, birth place, ...) and use it to gain access to his email account (using password reset and secret questions). Once the email account has been compromised, it can be used to launch phishing attacks on the real target and retrieve important secrets.
+
+
+\subsection{Rubberhose Cryptoanalysis}
+
+The rubberhose attack describe the use of force (legal, hierarchical or physical) and/or torture on a physical person in order to extract information about the system (keys, ciphers used, ...). It is difficult to prevent those attacks since they are outside the scope of cryptanalysis (most of them belong to sociography/politics).The only way to mitigate against those attacks is agent partial-blindness or plausible deniability.
+
