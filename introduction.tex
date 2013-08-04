@@ -6,7 +6,7 @@
 
 A cipher consist of en encoder and a decoder. The algorithm behind the encoder and the decoder has to be public in order to ensure the integrity and the robustness of the cipher. The ciphers are typically  open source projects, reviewed by security experts.  \\
 
-\subsection{Definitions}
+\section{Definitions}
 
 \begin{flalign*}
 \emph{Encoder : }  &E : KxM \mapsto C  \\
@@ -134,7 +134,7 @@ Example of a decryption :
     \centering
         \includegraphics[width=0.7\textwidth]{images/vigenere}
 	\caption{Vigenere \emph{tabula recta} for handmade encryption\\ source : illuminations.nctm.org}
-	\label{fig:LetterFrequency}
+	\label{fig:TabulaRecta}
 \end{figure}
 
 The Vigenere code is a fairly simple encryption scheme yet it were quite powerful (before the invention of automatic computation) since the encryption/decryption is a time-linear operation (table lookups) whereas the brute-force attack involve time-polynomial operations (multiple tables creation and lookups). It is still fairly easily breakable if the key's length is known to the attacker because it revert the cipher to a substitution one. Morevover, there are several methods which estimate the key's length based on frequency analysis (the vigenere cipher does mask all letter frequency patterns).\\

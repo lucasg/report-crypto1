@@ -135,6 +135,7 @@ It is a serious weakness, since we can use a two-time pad attack on paquet $0$ a
 \section{ Block Ciphers }
 
 
+The block cipher has been created to be able to encode many message using the same key (thus reducing the number of key generated). In order to do so, the encryption has to be randomized (the random part sent along the cipherext)
 
 \section{Data Encryption Standard (DES)}
 
@@ -179,11 +180,12 @@ The DES use a specific algroithm to expand the secret key into a family a subkey
 
 Each PRF $f_i$ use a 48-bit subkey $k_i$ generated from the key-schedule and the 32-bit half-message from the previous round as input. The message is expanded to 48 bits to match the subkey's length, and the former is xor'ed with the latter.\\
 The result is split in 6-bit value arrays (8 values if you can count). Each one of these 6-bit arrays goes through a 6-to-4 bits substitution functions $S_i$. For speed purposes, thoses $S_i$ boxes are often implemented as lookup-tables. \\
-The result from the boxes is then recollected in a 32-bit message which goes through a final constant permutation function P in order to obtain the output. 
+The result from the boxes is then recollected in a 32-bit message which goes through a final constant permutation function P in order to obtain the output. \\
+The 56-bit key is expanded into sixteen 48-bit subkey using rotations and permutation ( see \cite{DES-wikipedia} ).
 
-\begin{figure}[h!]
+\begin{figure}[ht!]
     \centering
-       \includegraphics[width=\textwidth]{images/DES-f-function.png}
+       \includegraphics[width=0.7\textwidth]{images/DES-f-function.png}
     \caption{DES Festeil Function \\ source : Wikipedia}
 	\label{fig:DES-f-function}
 \end{figure}
@@ -191,12 +193,14 @@ The result from the boxes is then recollected in a 32-bit message which goes thr
 \subsection{ Semantic security }
 
 \begin{mytheorem}[Luby-Rackoff (1985)]
-    Let $f:Kx{0,1}^n -> {0,1}^n$ a secure PRF, then the 3-round Feistel network is a secure PRP. \footnote{ you can see the proof here : \url{http://www.csc.kth.se/utbildning/kth/kurser/DD2448/krypto10/handouts/LR.pdf }}
+    Let $f:K\times\llbracket0,1\rrbracket^n -> \llbracket0,1\rrbracket^n$ a secure PRF, then the 3-round Feistel network is a secure PRP. \footnote{ you can see the proof here : \url{http://www.csc.kth.se/utbildning/kth/kurser/DD2448/krypto10/handouts/LR.pdf }}
 \end{mytheorem}
 
-The DES is a 16-round Feistel network, thus have the semantic security built on. 
+The DES is a 16-round Feistel network, therefore it has the semantic security built on.  Even if the key schedule, S-boxes and initial permutation are known (they are fixed by the standard) it is not considered as a breach of security as long as the key remains unknown. The attacker may know the in and outs of the system, it should not be able to recover the plaintext message or the key.
 
 \subsection{ Vulnerabilities }
+
+The DES construction may be secure against cyphertext attacks in theory, it is not the case in reality. 
 
 \subsection{DESx}
 
@@ -204,7 +208,7 @@ The DES is a 16-round Feistel network, thus have the semantic security built on.
 
 \subsection{Definition}
 
-A AES block cipher has been created to be able to encode many message using the same key (thus reducing the number of key generated). In order to do so, the encryption has to be randomized (the random part sent along the cipherext). It exist two versions of the AES : the Cipher Block Chain (CBC) and the Randomized Counter Mode (CTR). 
+The AES cipher is the next generation of standard encryption, replacing DES. It has been created around 2000, and it currently widely use for symetric encryption (disk encryption with TrueCrypt, Wifi with WPA, ...). It exist two versions of the AES : the Cipher Block Chain (CBC) and the Randomized Counter Mode (CTR). 
 
 \subsection{Cipher Block Chain construction (CBC)}
 
