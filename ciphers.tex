@@ -139,7 +139,7 @@ The block cipher has been created to be able to encode many message using the sa
 
 \section{Data Encryption Standard (DES)}
 
-The DES is a US standard created by the US. DOD \footnote{Department of Defense} in the 70's and built upon Feistel Networks as PRF. It has been broken by "exhaustive search" attacks in 1997 (and by others ways since).\\
+The DES is a US standard created by the US. DOD \footnote{Department of Defense} in the 70's and built upon Feistel Networks as PRF. It has been broken by "exhaustive search" attacks in 1997 (and by others ways since).
 
 \subsection{Feistel Network}
 
@@ -174,13 +174,14 @@ This property is really handy since it halves the cipher's implementation in ter
 
 The DES cipher works on 64-bit blocks encrypted by a 56-bit key, and it's constructed in the following manner : it has at first an initial permutation ($IP$), then a 16-round Feistel network with a key expansion alogrithm for the arbitrary functions, and finally the inverted initial permutation $IP^{-1}$ applied.
 
-\subsubsection{Key schedule for DES}
+\subsubsection{Festeil functions}
 
 The DES use a specific algroithm to expand the secret key into a family a subkey which will feed the Feistel family of PRF $f_0,f_1,\dots f_n$ : it is called a key schedule. Before decribing the key schedule, let's see the Feistel function f. 
 
 Each PRF $f_i$ use a 48-bit subkey $k_i$ generated from the key-schedule and the 32-bit half-message from the previous round as input. The message is expanded to 48 bits to match the subkey's length, and the former is xor'ed with the latter.\\
 The result is split in 6-bit value arrays (8 values if you can count). Each one of these 6-bit arrays goes through a 6-to-4 bits substitution functions $S_i$. For speed purposes, thoses $S_i$ boxes are often implemented as lookup-tables. \\
 The result from the boxes is then recollected in a 32-bit message which goes through a final constant permutation function P in order to obtain the output. \\
+
 The 56-bit key is expanded into sixteen 48-bit subkey using rotations and permutation ( see \cite{DES-wikipedia} ).
 
 \begin{figure}[ht!]
@@ -200,9 +201,13 @@ The DES is a 16-round Feistel network, therefore it has the semantic security bu
 
 \subsection{ Vulnerabilities }
 
-The DES construction may be secure against cyphertext attacks in theory, it is not the case in reality. 
+The DES construction may be secure against cyphertext attacks in theory, it is not the case in reality. The most famous security hole is DES vulnerability against Exhaustive Search Attacks : 	
 
-\subsection{DESx}
+\subsection{Variants}
+
+It exists some variants of the DES cipher, destined to lessen its flaw against brute force attacks. The two most known are 3Des (or "Triple DES" ) and DESx. \\
+The 3DES is really straighforward : it's 3 DES ciphers in cascad. It has been designed to prevent exhaustive search attacks by expanding the key space necessary to compute. Since it use the same DES block, it is a fairly inexpensive (in terms of dev times or parts) upgrade from DES which bring a good layer of security.
+The DESx cope up with brute force by using the key whitening technique : on top of the 56-bit key used for the DES cipher, the DESx uses also two 64-bit keys $K_1$ and $K_2$. The key $K_1$ is xor'ed with the plaintext before going through the DES cipher, while the key $K_2$ is xor'ed with the DES output to give the ciphertext. This complexification makes the DESx more difficult tot crack by brute force attacks, as well as linear and differential attacks.
 
 \section{Advanced Encryption Standard (AES)}
 
