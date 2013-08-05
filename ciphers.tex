@@ -215,20 +215,18 @@ The DESx cope up with brute force by using the key whitening technique : on top 
 
 The AES cipher is the next generation of standard encryption, replacing DES. It has been created around 2000, and it currently widely use for symetric encryption (disk encryption with TrueCrypt, Wifi with WPA, ...). It exist two versions of the AES : the Cipher Block Chain (CBC) and the Randomized Counter Mode (CTR). 
 
+\subsection{ AES cipher implementation }
+
+
 \subsection{Cipher Block Chain construction (CBC)}
 
-IV : intial vector (random).
-$E_k : M -> C$ Encoder
-$      m -> E(k,m)$
 
-\subsubsection{Theorem}
 
-$\forall L>0$, if E is a secure PRP over (K,X), then $E_{CBC}$ is a semantically secure cipher under CPA over $(K,X^L,X^{L+1})$.
-
-$Adv_{CPA}[A,E_{CBC}] \leq 2.Adv_{PRP}[B,E] + 2.q^2.L^2/|X| $
-q : nb of messages encrypted using key k
-L : length of the message
-
+\begin{mytheorem}[CBC Semantic Security]
+   $\forall L>0$, if E is a secure PRP over (K,X), \\
+   then $E_{CBC}$ is a semantically secure cipher under CPA over $(K,X^L,X^{L+1})$. \\
+ 	Moreover : $Adv_{CPA}[A,E_{CBC}]$  $\leq$ $ 2.Adv_{PRP}[B,E] + 2.\frac{q^2.L^2}{|X|} $. \footnote{where q is the number of messages encrypted using the key k, and L the length of the messages.}
+\end{mytheorem}
 
 
 \subsubsection{Construction with a Nonce-based IV}
