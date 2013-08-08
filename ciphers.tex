@@ -283,10 +283,11 @@ The DESx cope up with brute force by using the key whitening technique : on top 
 
 \subsubsection{Definition}
 
-The AES cipher is the next generation of standard encryption, replacing DES. It has been created around 2000, and it currently widely use for symmetric encryption (disk encryption with TrueCrypt, Wifi with WPA, ...). AES is currently important since it's used for TLS transmissions, the backbone layer for HTTPS communications : in other words the present secure Web \footnote{while it starts to be recommended to use Elliptic Curve for TLS}.
+The AES cipher is the next generation of standard encryption, replacing DES. It has been created around 2000, and it currently widely use for symmetric encryption (disk encryption with TrueCrypt, Wifi with WPA, SSH with OpenSSL, ...). AES is currently important since it's used for TLS transmissions, the backbone layer for HTTPS communications : in other words the secure Web as it is \footnote{while it starts to be recommended to use Elliptic Curve for TLS}.
 
 \subsubsection{ AES cipher implementation }
 
+The AES implementation follow the same architecture as DES : an initial permutation (AddRoundKey), several rounds which apply the same macro function ( SubBytes - ShiftRow - MixColumns - AddRoundKey ) and a final transformation (SubBytes - ShiftRow - AddRoundKey). The 4 sub-routines has been designed to present the minimal bias at system level.
 
 \subsection{Cipher Block Chain construction (CBC)}
 
