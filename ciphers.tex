@@ -152,15 +152,60 @@ In this section will be presented the different ways to encode a plaintext using
 
 \subsubsection{ Electronic Codebook Mode (ECM) } 
 
-The most straightforward way to encrypt several blocks (and the most fragile one) : map the input block to the encryption function and concatenate the output to get the ciphertext message.
+The most straightforward way to encrypt several blocks (and the most fragile one) : map the input block to the encryption function and concatenate the output to get the ciphertext message. 
+
+
+\begin{figure}[hb!]
+    \centering
+       \includegraphics[width=\textwidth]{images/ECB_encryption.png}
+	\caption{ECB encryption implementation \\ source : Wikipedia}
+	\label{fig:ECB_encryption_impl}
+\end{figure}
+
+
+While this method has its perks (simplicity, parallelism) it also has a gaping flaw : two identical plaintext block will result in two identical ciphertext block, which reveal a lot of information about the inner structure of the whole message. The exemple below highlight this vulnerability : 
+
+
+\begin{figure}[b]
+        \centering
+        \begin{subfigure}[c]{0.27\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/Tux.jpg}
+                \caption{Plaintext Image}
+                \label{fig:ECB_Exemple_plaintext}
+        \end{subfigure}
+        ~
+        \begin{subfigure}[c]{0.27\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/Tux_ecb.jpg}
+                \caption{ECB encrypted image}
+                \label{fig:ECB_Exemple_encrypted}
+        \end{subfigure}
+		~		        
+        \begin{subfigure}[c]{0.27\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/Tux_secure.jpg}
+                \caption{  pseudo-randomness }
+                \label{fig:ECB_Exemple_objectif}
+        \end{subfigure}
+        \caption{Pictures of animals}\label{fig:ECB_flaw}
+\end{figure}
+
+The MMO Phantasy Star Online use to rely on Blowfish-ECB cipher for client-server communications : one day some people extracted the encrypted block containing the message "Monster Defeated !" and, by sending this block multiple times, they were able to make their character gains experience faster.
 
 \subsubsection{ Cipher-Block Chaining (CBC) }
+
+The major issue with ECB is that each block is treated independently : they have to be linked in some way to prevent the forge of sub-messages. The CBC mode does that by injecting the previous block's ciphertext into the next encryption block cipher : 
+% insert image
+
 
 \subsubsection{ Counter (CTR) }
 
 \subsubsection{ Cipher Feedback (CFM) }
 
 \subsubsection{ Output Feedback (OFM) }
+
+\subsubsection{ Output Feedback (GCM) }
 
 
 \subsection{Data Encryption Standard (DES)}
@@ -238,10 +283,11 @@ The DESx cope up with brute force by using the key whitening technique : on top 
 
 \subsubsection{Definition}
 
-The AES cipher is the next generation of standard encryption, replacing DES. It has been created around 2000, and it currently widely use for symmetric encryption (disk encryption with TrueCrypt, Wifi with WPA, ...). AES is currently important since it's used for TLS transmissions, the backbone layer for HTTPS communications : in other words the present secure Web \footnote{while it starts to be recommended to use Elliptic Curve for TLS}.
+The AES cipher is the next generation of standard encryption, replacing DES. It has been created around 2000, and it currently widely use for symmetric encryption (disk encryption with TrueCrypt, Wifi with WPA, SSH with OpenSSL, ...). AES is currently important since it's used for TLS transmissions, the backbone layer for HTTPS communications : in other words the secure Web as it is \footnote{while it starts to be recommended to use Elliptic Curve for TLS}.
 
 \subsubsection{ AES cipher implementation }
 
+The AES implementation follow the same architecture as DES : an initial permutation (AddRoundKey), several rounds which apply the same macro function ( SubBytes - ShiftRow - MixColumns - AddRoundKey ) and a final transformation (SubBytes - ShiftRow - AddRoundKey). The 4 sub-routines has been designed to present the minimal bias at system level.
 
 \subsection{Cipher Block Chain construction (CBC)}
 
