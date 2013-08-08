@@ -3,3 +3,12 @@
 
 #Output Folder
 build
+
+#Latex temp files
+*.aux
+*.toc
+*.log
+
+#BAK files (git)
+*.bak
+
