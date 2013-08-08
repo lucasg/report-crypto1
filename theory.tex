@@ -12,12 +12,12 @@
 
 The symmetric-key encryption is the oldest class of cryptography process. The major flaw of symmetric ciphers is the obligation for both parties (sender and receiver) to share the secret (the key). Nowadays, it is recommended to use non-symmetric encryption (also known as public-key encryption).
 
-\subsection{Computationnally equivalence}
-Definition : two distributions $P_1$ and $P_2$ are compuationnally equivalent if , for every "efficient" polynomial statistical test A, \\
+\subsection{Computationally equivalence}
+Definition : two distributions $P_1$ and $P_2$ are computationally equivalent if , for every "efficient" polynomial statistical test A, \\
 
 $ | Pr[A(X) == 1  - Pr[A(X) == 1] |  $ \\
 $   X <- P_1      X <- P_2              $ \\
-X chosen uniformément dans les distributions.
+X chosen uniformly dans les distributions.
 
 \section{Probability Remainder}
 
@@ -36,7 +36,7 @@ The advantage Adv over a certain function is a statistical test A such as :
 $Adv_{F} [A,G] = | Pr[A(G(k)) == 1  - Pr[A(r) == 1] | $
                    %pseudo-randomness      %randomness
                      
-An advantage "close to one" is considered to break the Pseudorandom function, because the test A can distinguish pseudorandomness from true randomness.
+An advantage "close to one" is considered to break the Pseudo-random function, because the test A can distinguish pseudo-randomness from true randomness.
 
 \subsubsection{indistinguishability}
 
@@ -56,7 +56,7 @@ K : key space
 D : Function Domain
 R : Range
 
-The function F is a PRF if no efficient adversary with significant advantage can distinguish F from a random oracle. Pseudorandom functions are vital tools in the construction of cryptographic primitives.
+The function F is a PRF if no efficient adversary with significant advantage can distinguish F from a random oracle. Pseudo-random functions are vital tools in the construction of cryptographic primitives.
 
 \subsection{Pseudo-Random Permutation   (PRP)}
 
@@ -65,7 +65,7 @@ The function F is a PRF if no efficient adversary with significant advantage can
 
 $E : KxX -> X$
 A PRP differs from a PRF : the domain D and the range R are the same. Since the function map the two same sets, we can deduce that $E(k,.)$ ( k is fixed) is bijective : it is a permutation then.
-A major propriety of the PRP (comparatevily to the PRF) is that the PRP can be inverted, thus improving the decoding speed.
+A major propriety of the PRP (comparatively to the PRF) is that the PRP can be inverted, thus improving the decoding speed.
 
 
 \subsection{Pseudo Random Generator     (PRG)} 
@@ -76,7 +76,7 @@ NB : ne pas confondre PRG et PRNG
 
 $ G : {0,1}^s -> {0,1}^n $  with  $n>>s$, with unpredictability property
 G is deterministic, but the seed S is random
-Stream ciphers : $c = m \oplus G(k) $  (one time pad with pseudorandom generator )
+Stream ciphers : $c = m \oplus G(k) $  (one time pad with pseudo-random generator )
 
 
 \subsubsection{Secure PRG}
@@ -94,7 +94,7 @@ Of course we don't know all the existing efficient statistical tests so we can't
     $Pr[E(k,m_1) = c] = Pr[E(k,m_2) = c]$  \flushright (k uniform in K)
 \end{mytheorem}
 
-In layman terms, perfect secrecy means that, given two messages and the ciphertext of one of the two plaintext messages, the attacker cannot know from which message the ciphertext has been created (equal probability). A corrollary is, under perfect secrecy conditions, the key space $K$ cardinality must be equal or larger than the ciphertext space $C$ cardinality, which has to be equal or larger than the message space $M$ cardinality :
+In layman terms, perfect secrecy means that, given two messages and the ciphertext of one of the two plaintext messages, the attacker cannot know from which message the ciphertext has been created (equal probability). A corollary is, under perfect secrecy conditions, the key space $K$ cardinality must be equal or larger than the ciphertext space $C$ cardinality, which has to be equal or larger than the message space $M$ cardinality :
 \begin{mytheorem}[Shannon perfect secrecy corollary]
     $ |M| \leq |C| \leq |K| $. 
 \end{mytheorem}
@@ -104,7 +104,7 @@ In layman terms, perfect secrecy means that, given two messages and the cipherte
 
 The semantic security is a weaker form of Shannon's perfect secrecy (which is not usable in reality) : the distributions $P_1 = Pr[E(k,m_1) = c , k<- K]$ and $P_2$ does not have to be equal, just computationnaly equivalent.
 
-\subsubsection{Evesdropping adversary}
+\subsubsection{Eavesdropping adversary}
     The proof for semantic security is to consider two messages $m_1$ and $m_2$. The encoder choose randomly which message to encrypt : $C_i = E( f(m_i,i), k)$ with $i = {0,1}$ .
 The attacker (or opponent) has access to $C_i$, but cannot modify it 
 

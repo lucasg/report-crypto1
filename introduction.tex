@@ -40,7 +40,7 @@ Uses of crypto :
 
 One way to ensure confidentiality is to outsource the task to a third party which has credibility and trust, like when we give our last will to a exterior person which does not have any involvement with the family(typically a \emph{notaire}).
 
-However, the trusted authority solution - like any centralized mecanism -  creates a single point of failure, so the trusted authority might not be always a good solution. \\
+However, the trusted authority solution - like any centralized mechanism -  creates a single point of failure, so the trusted authority might not be always a good solution. \\
 
 \emph{Theorem} : Any computation done by trusted authority can be done without it.\\
 
@@ -49,7 +49,7 @@ However, the trusted authority solution - like any centralized mecanism -  creat
 
 \textit{Aim of cryptography} : prove that, under a certain threat vector, forge the signature comes to solve a NP-problem. \\
 
-The definition of a NP-problem is that it is computationally "hard" to solve (nondeterministic polynomial time), but easy to verify a solution (called signature).
+The definition of a NP-problem is that it is computationally "hard" to solve (non-deterministic polynomial time), but easy to verify a solution (called signature).
 
 A zero-knowledge proof is a signature the user present to the server, which will answer true or false based on the signature's validity. Under zero-knowledge hypothesis, the user does not learn anything more than the validity of the signature.
 
@@ -74,20 +74,20 @@ $output$&c&o&a&h&l&z&m&v&n&e&b&q&s&j&u&k&w&r&p&g&t&i&d&x&f&y \\
             \hline
 		\end{tabular}
     }
-	\caption{Substituion table}
+	\caption{Substitution table}
 	\label{tab:SubstitionTable}
 \end{table}
 
 Example of a encryption : 
 \begin{alignat*}{3}
-    &\text{plaintext}   & : & \text{ several flamethrowing sharks}&  \\
+    &\text{plaintext}   & : & \text{ several flame-throwing sharks}&  \\
     & \downarrow        & : &   \downarrow & \\
     &\text{cyphertex}   & : & \text{ plilrcq   zqcslgvrudlr pvcrbp}&  \\ 
 \end{alignat*}
 
 
 The encryption is simply the substitution of every letter in the message $m$ by its counterpart in the map $K$.\\
-The substitution cipher is however breakable just by looking at ciphertexts. The study of the letters' frequencies in the ciphertexts can give huge informations on the map $K$. In English, the letter "$e$" is the most used so, by looking which letter is the most used in the ciphertexts, we can give a pretty good guess of the subsitution of "$e$".\\
+The substitution cipher is however breakable just by looking at ciphertexts. The study of the letters' frequencies in the ciphertexts can give huge informations on the map $K$. In English, the letter "$e$" is the most used so, by looking which letter is the most used in the ciphertexts, we can give a pretty good guess of the substitution of "$e$".\\
 
 \begin{figure}[ht!]
     \centering
@@ -119,7 +119,7 @@ Example of a encryption :
     &\text{cyphertex}   & : & \text{ztgqrayvqkhv}&  \\ 
 \end{alignat*}
 
-If yhe encryption is based on a sum of letter position in the alphabet modulo the alphabet's length, the decryption is as simple since it's a difference: 
+If the encryption is based on a sum of letter position in the alphabet modulo the alphabet's length, the decryption is as simple since it's a difference: 
 
 Example of a decryption : 
 \begin{alignat*}{3}
@@ -137,7 +137,7 @@ Example of a decryption :
 	\label{fig:TabulaRecta}
 \end{figure}
 
-The Vigenere code is a fairly simple encryption scheme yet it were quite powerful (before the invention of automatic computation) since the encryption/decryption is a time-linear operation (table lookups) whereas the brute-force attack involve time-polynomial operations (multiple tables creation and lookups). It is still fairly easily breakable if the key's length is known to the attacker because it revert the cipher to a substitution one. Morevover, there are several methods which estimate the key's length based on frequency analysis (the vigenere cipher does mask all letter frequency patterns).\\
+The Vigenere code is a fairly simple encryption scheme yet it were quite powerful (before the invention of automatic computation) since the encryption/decryption is a time-linear operation (table lookups) whereas the brute-force attack involve time-polynomial operations (multiple tables creation and lookups). It is still fairly easily breakable if the key's length is known to the attacker because it revert the cipher to a substitution one. Moreover, there are several methods which estimate the key's length based on frequency analysis (the vigenere cipher does mask all letter frequency patterns).\\
 
 
 
@@ -174,7 +174,7 @@ The enigma machine is a device built by a German company around 1920 and consist
         \caption{Enigma rotor : the rotor rotate by a increment for every new input, which lead to a different substitution table. \\ Source : www.bibmath.net }\label{fig:enigma_rotors}
 \end{figure}
 
-In order to strenghten the protocol, a typical Enigma machine use 3 rotors and a reflector\footnote{There is also a plugboard, which swap at most two pairs of letters.}. The reflector is a fixed rotor which acts as a mirror (it 's a simple substitution cipher) and each rotor is incremented by a special transition from the rotor on the left (apart from the most left one, which is incremented at each new input). In this configuration, the rotors' configurations act as public keys while the rotors' initial position as well as the rotors' order is the private one. The rotors can be sold or stolen without revealing anything about the encryption (apart from degenerate rotor configurations). The machine being symetrical, the cipher is symetric too : using the same private key, typing the ciphertext into the machine will print the plaintext message\footnote{Mathematical proof of the Enigma's symmetrical property can be found here : ??? .}.
+In order to strengthen the protocol, a typical Enigma machine use 3 rotors and a reflector\footnote{There is also a plugboard, which swap at most two pairs of letters.}. The reflector is a fixed rotor which acts as a mirror (it 's a simple substitution cipher) and each rotor is incremented by a special transition from the rotor on the left (apart from the most left one, which is incremented at each new input). In this configuration, the rotors' configurations act as public keys while the rotors' initial position as well as the rotors' order is the private one. The rotors can be sold or stolen without revealing anything about the encryption (apart from degenerate rotor configurations). The machine being symmetrical, the cipher is symmetric too : using the same private key, typing the ciphertext into the machine will print the plaintext message\footnote{Mathematical proof of the Enigma's symmetrical property can be found here : ??? .}.
 
 
 \begin{figure}[ht!]
@@ -184,7 +184,7 @@ In order to strenghten the protocol, a typical Enigma machine use 3 rotors and a
 	\label{fig:enigma_3rotors}
 \end{figure}
 
-The enigma machines were largerly used during World War II by the German Army as a crypto-system. The breaking of Enigma di occupy a lot of mathematicians and logicians at that time, and bring numerous breakthroughs in cryptology. Finally, Alan Turing \footnote{also known as the most badass computer scientist of the 20th century} did crack the cipher using "crib" techniques : by analysing ciphertexts and some partial plaintexts (such as headers, known contents,...), it was possible to deduce the inner structure of the machine, and creating an automatic decypher called \emph{Bombe}.
+The enigma machines were largely used during World War II by the German Army as a crypto-system. The breaking of Enigma did occupy a lot of mathematicians and logicians at that time, and bring numerous breakthroughs in cryptology. Finally, Alan Turing \footnote{also known as the most badass computer scientist of the 20th century} did crack the cipher using "crib" techniques : by analysing ciphertexts and some partial plaintexts (such as headers, known contents,...), it was possible to deduce the inner structure of the machine, and creating an automatic decipher called \emph{Bombe}.
 
 
 
