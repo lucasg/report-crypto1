@@ -11,4 +11,5 @@ build
 
 #BAK files (git)
 *.bak
+*.db
 
