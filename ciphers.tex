@@ -134,19 +134,25 @@ It is a serious weakness, since we can use a two-time pad attack on packet $0$ a
 
 \section{ Block Ciphers }
 
+While being simpler and generally faster, the streams ciphers have security blind spots, especially against replay attacks. Block ciphers has been created to lessen this issue, while allowing multiple encoding with the same key. The block ciphers work on fixed size chunks of data - called "blocks" - and are often constructed by iterating a one-time cipher multiple times, using an initial vector sent along the ciphertext and key expansion scheme to decompress the root key.
+
+% Insert General Schema of block cipher encryption
 
 \subsection{Nonce and Initial Vector}
 
-The block cipher has been created to be able to encode many message using the same key (thus reducing the number of key generated). In order to be protected against replay attacks , the encryption has to be "randomized" : two encryptions of the same plaintext should not result in the same ciphertext. \\
+In order to be protected against replay attacks , the encryption has to be "randomized" : two encryptions of the same plaintext should not result in the same ciphertext. \\
 The initial vector is used as first input of block cipher to ensure the uniqueness of the ciphetext, independently from the plaintext message : that's why it has to change with every encryption, and it is sent in plaintext along the ciphertext message. It can be implemented as a counter, but also with  a nonce.\\
 The counter solution has the advantage to be simple : every time an encryption is done, just increment the variable. It has also the advantage of being asynchronous : since the IV's evolution is known, it's not useful to send the IV with the ciphertext, the sender incremented each time it encrypt a message, and the receiver each time it decipher it. However, you have to be careful to have a sufficient space for IV in order to mitigate against replay attacks (see the \cite{WEP} cipher use such IV mode and is vulnerable because IV's size is not sufficiently large )  . \\
 The other way to randomize the encryption is to use a nonce : a arbitrary number which does not repeat twice the same value. The nonce is often created from the output of a random number generator (such as /dev/random or /dev/urandom ) with a sufficient pool of entropy to ensure a low probability of generating twice the same number. The nonce is then send along with the encrypted message. 
 
 \subsection{ Cipher Block modes of operation }
 
-In this section will be presented the different ways to encode a plaintext using block ciphers, using slight variations on the IV's introduction and each block cipher input, and describing their strength and weakness. There are one broken way to operate a block cipher ( ECB mode ) , two majors secure ones ( CBC and CTR ) , and other minors modes (GCM, ...).
+Most of the times, the length of the plaintext message will be larger than the block size the cipher operates on : the message has to be split in several blocks. The encryption of those block has to think through, since it can jeopardize the whole system. \\
+In this section will be presented the different ways to encode a plaintext using block cipher, using slight variations on the IV's introduction and each block cipher input, and describing their strength and weakness. There is one broken way to operate a block cipher ( ECB mode ) , two majors secure ones ( CBC and CTR ) , and other minors modes (GCM, ...). \\
 
 \subsubsection{ Electronic Codebook Mode (ECM) } 
+
+The most straightforward way to encrypt several blocks (and the most fragile one) : map the input block to the encryption function and concatenate the output to get the ciphertext message.
 
 \subsubsection{ Cipher-Block Chaining (CBC) }
 
@@ -246,7 +252,6 @@ The AES cipher is the next generation of standard encryption, replacing DES. It 
    then $E_{CBC}$ is a semantically secure cipher under CPA over $(K,X^L,X^{L+1})$. \\
  	Moreover : $Adv_{CPA}[A,E_{CBC}] \leq 2.Adv_{PRP}[B,E] + 2.\frac{q^2.L^2}{|X|} $. \footnote{where q is the number of messages encrypted using the key k, and L the length of the messages.}
 \end{mytheorem}
-
 
 \subsubsection{Construction with a Nonce-based IV}
 
