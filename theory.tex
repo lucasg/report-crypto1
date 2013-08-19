@@ -104,6 +104,7 @@ In layman terms, perfect secrecy means that, given two messages and the cipherte
 
 The semantic security is a weaker form of Shannon's perfect secrecy (which is not usable in reality) : the distributions $P_1 = Pr[E(k,m_1) = c , k<- K]$ and $P_2$ does not have to be equal, just computationnaly equivalent.
 
+
 \subsubsection{Eavesdropping adversary}
     The proof for semantic security is to consider two messages $m_1$ and $m_2$. The encoder choose randomly which message to encrypt : $C_i = E( f(m_i,i), k)$ with $i = {0,1}$ .
 The attacker (or opponent) has access to $C_i$, but cannot modify it 
@@ -114,6 +115,15 @@ The attacker (or opponent) has access to $C_i$, but cannot modify it
     $E$ is semantically secure if, for all adversary A, $Adv_{SS}[A,E]$ is negligible.
 \end{mytheorem}
 
+\subsubsection{Many-time key semantic security}
+
+For the case of many-time utilisation of the same key (most common usage of symmetric security), the attacker has the right to submit 2*q messages, and receive the encryption of q ones (based on $i$). The theorem for chosen plaintext attack remain the same :
+
+\begin{mytheorem}[Chosen Plaintext Attack (CPA)]
+    $E$ is semantically secure if, for all adversary A, $Adv_{CPA}[A,E]$ is negligible.
+\end{mytheorem}
+
+Most of the ciphers are insecure against many-time key attack : to mechanism to prevent those attacks from working is to randomize the encryption using nonce or initial vector.
 
 \section{Integrity}
 \subsection{Secure MAC}
