@@ -1,7 +1,7 @@
 \chapter{Attack Vectors}
 
 \section{Attacks on the implementation}
-Attacks from analysis the source code : buffer overflows, stack overflows, ...
+Attacks from analysing the source code : buffer overflows, stack overflows, ...
 
 Analysis of the time and power required to encode/decode messages (using oscilloscopes and multimeter).
 
@@ -27,13 +27,27 @@ You only way to prevent a cipher from ESA is to augment the key size until no ex
 
 \section{Meet in the middle attacks}
 
-\subsection{Example}
-We went from DES (broken cipher) to 3-DES directly because 2-DES is insecure from MitM attacks.
-
-Def : Find $k = (k_1,k_2)$ such as $E(k_1,E(k_2,m)) == c$, in other terms : $E(k_2,m) = D(k_1,m) $.
-$k_1$ and $k_2$ are independent keys, so we are back on simple DES Exhaustive Search attack.
-
 \subsection{Definition}
+The MITM attacks is a generic cryptoanalysis used originally to break n-rounds block ciphers. Given the ability to encrypt and decrypt any data, the attacker will try to find the encryption of a certain plaintext which match the decryption of another certain cyphertext. In others words, the encryption and decryption algorithm does each one half of the work and "meet".
+
+\begin{mydef}[Meet in the middle Attack]
+\begin{minipage}[t]{0.8\textwidth}
+	Given (E,D) encryption/decryption system, \\
+    Find (m,c) such that : E(m) == D(c).
+\end{minipage}
+\end{mydef}
+
+\subsection{Example}
+
+A famous example which validate the theory of "more rounds equal better security" is the double-DES : once demonstrated that DES is insecure, they tried to update the standard without changing everything by simply cascading a DES into another one, using two separate keys. However, 2-DES is badly vulnerable from MITM attacks.
+
+\begin{mydef}[Challenge]
+\begin{minipage}[t]{0.8\textwidth}
+	Given (m,c), find $k = (k_1,k_2)$ such that $E(k_1,E(k_2,m)) == c$
+\end{minipage}
+\end{mydef}
+
+Since $k_1$ and $k_2$ are independent keys, we have : $E(k_2,m) = x = D(k_1,m) $ . Breaking a 2-DES cipher is close to break DES, just twice longer. That's why 2-DES was never used and standard chosen is 3-DES.
 
 \section{Linear and Differential Attacks}
 \subsection{Linear Attacks}
@@ -42,14 +56,20 @@ $k_1$ and $k_2$ are independent keys, so we are back on simple DES Exhaustive Se
 
 \section{Quantum attacks}
 
+Quantum attacks are based on quantum computing. Unlike classical computers, quantum computers take advantage of quantum state superposition and entanglement to speed up solving time of equations, especially when combinatory calculus are present.
+
 \subsection{ Generic Search Problem}
 
-Def : Let f : X -> {0,1}
-              x ->   b
-find x in X such that f(x) == true
+\begin{mydef}
+\begin{minipage}[t]{0.8\textwidth}
+    Let $f : X \rightarrow {0,1}$ a generic oracle, \\
+  	Generic Search Problem : find $x \in X$ such as $ f(x) == true $.
+\end{minipage}
+\end{mydef}
 
-On classical computer, the best generic algorithm is linear ( O(|X|) ) whereas on a quantum computer, it's root-squared ( O($|X|^{\frac{1}{2}}$).
+On classical computer, the best generic solver is linear ( $O(|X|)$ ) whereas on a quantum computer, it's root-squared ( $O(|X|^{\dfrac{1}{2}})$).
 
+\subsection{ Consequences } 
 The practical consequence of quantum computing over cryptography is to halve the key space : a way to prevent ciphers from quantum attacks is to double the key space ( a 1024-key RSA cipher is as strong against quantum computers as a 512-key RSA cipher against classical computers).
 
 
@@ -108,11 +128,11 @@ In order to do so, the attacker will send multiple queries : each DNS resolution
 
 \section{Social Attacks}
 
-Crypto attacks target the weakest link of a system : sometimes it is the human nature the weakest link. This finding led to the famous "social engineering" attacks and the less known (but way more dangerous) rubberhose attacks.
+Attacks target the weakest link of a system : sometimes it is the human nature the weakest link. This finding led to the famous "social engineering" attacks and the less known (but way more dangerous) rubberhose attacks.
 
 \subsection{Social Engineering}
 
-Social Engineering describe a motley crew of methods designed to "punching a hole" into a system from the inside, without informing the insider of what he has done. \\\\
+Social Engineering describe a motley crew of methods designed to "punching a hole" into a system from the inside, without informing the insider of what he has done. \\
 The most famous example is to leave some booby-trapped pendrives (and even more creative methods 
 \footnote{ A mouse device with modified firmware was sent as a gift to tech-based company employees for a security test : \url{ http://www.theregister.co.uk/2011/06/27/mission_impossible_mouse_attack/}.  }
 ) on the company site and hope for one employee to plug it in his workstation . Once it is plugged, the rigged pendrive which usually contains a Trojan, execute its script in order to obtain a privilege escalation from within the system and connect to the attacker then.\\\\
@@ -126,13 +146,6 @@ The rubberhose attack describe the use of force (legal, hierarchical or physical
 \begin{figure}[hb!]
     \centering
        \includegraphics{images/rubberhose.png}
-	\caption{Real-world exploit. \\ source : XKCD}
-	\label{fig:RC4}
-\end{figure}
-
-\begin{figure}[hb!]
-    \centering
-       \includegraphics{images/rubberhose.png}
-	\caption{ Real-World 0-day exploit \\ source : XKCD}
+	\caption{Real-world 0-day exploit. \\ source : XKCD}
 	\label{fig:RC4}
 \end{figure}
