@@ -1,32 +1,98 @@
 \chapter{Key Exchange Protocols}
 
-This chapter will focus on the communication aspect of cryptography, and more exactly on the initialisation part which contains the key-exchange protocols. As we seen in the last two chapters, it exists robust systems to ensure the confidentiality and integrity of data transitions against eavesdropping and active attackers (given that those systems were correctly implemented). However, these mechanisms does not describe how the two actors (generally called Alice and Bob) exchange their secret in the first place. \\
-Key-exchange protocol is the last part of Coursera Cryptography I class and it's more detailled in the second class.
+This chapter will focus on the communication aspect of cryptography, and more exactly on the initialisation part which contains the key-exchange protocols. As we seen in the last two chapters, it exists robust systems to ensure the confidentiality and integrity of data transitions against eavesdropping and active attackers (given that those systems were correctly implemented). However, these mechanisms does not describe how the two actors (generally called Alice and Bob) create a shared secret used to encrypt data. \\
+Key-exchange protocol is the last part of Coursera Cryptography I class and it's more detailed in the second class.
 
 \section{Trusted 3rd party}
 
+The straight-up method of key-exchange between two parties (or more) is to use a third one as proxy. Each party gives their secret key to the TTP and, in return gives a shared one. While having many implementations (notary for wills and contract, Paypal for money transactions, certifications authorities (CA) ...) this procedure does not add security since it create a single point of failure (e.g. the TTP being pwn'ed) and the "trusted" part is sometimes false (as seen with the NSA leak ) : that's why it is preferable to look at zero-knowledge protocols for key exchange.
 
 
 \section{Merkle Puzzles}
-Merkle puzzles has been developed as a way to exchange keys using generic symmetric ciphers between two persons without a third-party. It's constructed upon a "puzzle", which means a computational difficult problem.
+Merkle puzzles has been developed as a way to exchange keys using a generic symmetric cipher between two persons without a third-party. It's constructed upon a "puzzle", which means a computational difficult problem.\footnote{I will not try to define what is a "difficult" computational problem, look at NP-hard problems.} \\
+As usual , we are in a situation of security against eavesdropping ( Merkle puzzles are insecure against active attacks such as AP poisoning ). Eve wants to retrieve the shared key that will be use for data transmission, and can only listen the communications between Alice and Bob. \\
 
-% Alice prepare n problems 
-% Bob solve one
+Steps for key-exchange using Merkle puzzles :
+\begin{enumerate}
+	\item Alice prepares n problems, and send it to Bob. Each problem has a message encrypted containing an identifier and a secret key
+	\item Bob solves one, and send the identifier in plaintext back to Alice
+	\item Alice fetch the secret key corresponding to the identifier sent by Bob
+	\item the two parties can communicate securely using their shared key.
+\end{enumerate}
 
-% Eavesdropper has n problems to solve, while Alice and Bob only one
-% Best case : O(n^2) (and we're not sure)
-% To improve the gap : use asymmetric encryption
+\paragraph{Complexity}
 
-% Weak against Man-In-The-middle attacks.
+The strength of the Merkle puzzle scheme lies in the asymmetry of the problem. Let a Merkle Puzzle be of complexity linear $O(m)$.  Alice send n puzzles to Bob which solves one so Bob need $O(n+m)$ time computation. Bob sending back an identifier, Alice only need to solve one puzzle, thus $O(n+m)$ too. However, Eve needs to solve "all" (until the identifier is found) puzzles, so $O(n*m)$ : Alice and Bob needs linear time computation, while Eve needs quadratic time.\\
 
-
+While being quite useful, the best gap in complexity provided by Merkle Puzzles is quadratic at best : for many real-world cases it is not enough\footnote{Merkle Puzzles are also vulnerable to quantum computation}. That's why exponential time gap scheme has been created (by Diffie and Hellman or RSA). 
 
 \section{Diffie-Hellman protocol}
+The Diffie-Hellman protocol is a key exchange scheme created in 1976, but still fairly used nowadays.  The strength of this protocol is based on the difficulty of the discrete logarithm problem. 
 
+Steps : 
+\begin{itemize}
+	\item Alice and Bob choose a finite group (generally $\frac{\mathbb{Z}}{p\mathbb{Z}}$) and g a generator from this group. 
+	\item Alice choose randomly a number $a$, and send to Bob $g^a$
+	\item Bob does the same with $b$
+	\item $g^{a.b}$ is the shared secret used to encrypt communications. Any eavesdropper has access to $g^{a}$ and $g^{b}$, but cannot easily compute the shared secret from these two numbers (since he has to compute either $a$ or $b$ using discrete log).
+\end{itemize}
 
+Discrete exponentiation is fairly easy ( linear time ) whereas discrete log is hard (best known algo in $exp(O(\sqrt[3]{x}))$ : this protocol use the asymmetry of the operation $\times $ to protect the key exchange, thus gaining the name of asymmetric-cryptography. However, if it were to be found an effective to the discrete log problem, the Diffie-Hellman would become insecure (as many others systems like El-Gamal).\\
+
+This exchange is secure against eavesdropping, but not against Man-in-the-Middle attacks. The mitigation against it is to send, as well as $g^x$, a publicly certified signature from a trusted third party\footnote{More on digital signature in the second part of the Coursera course}.\\
+
+\paragraph{Multi-party communication}
+As seen previously the Diffie-Hellman protocol gives a secure way for two parties to exchange a secret. What about more than two people ? Unfortunately, this a currently an open problem \footnote{there is nonetheless a simple solution for 3 parties.} : there is no efficient way to create a multi-party shared secret.
 
 \section{RSA encryption}
 
 
+\subsection{Trapdoor Functions}
+
+RSA encryption relies heavily on trapdoor functions for security. Trapdoor functions - or "one-way functions" - are easily computable in one direction, yet difficult in the other one \footnote{"easy" and "hard" does not have any formal meaning, we just look at difficulty from a empirical point-of-view}. \\
+
+In cryptography, a trapdoor function is a triplet $(G, F, F_{-1})$ where :
+\begin{itemize}
+	\item $G$: $ seed \rightarrow (pk, sk) $ a randomized algorithm which produce a public key and a secret one.
+	\item $F$ : $ (pk, X) \rightarrow  Y $ used to encrypt message $X$ using public key $pk$.
+	\item $F_{-1}$ : $ (sk, Y) \rightarrow X $ used to decrypt ciphertext $Y$ using secret key $sk$.
+\end{itemize}
+
+\begin{mytheorem}
+	$\forall (pk,sk) $ generated by $G$, \\
+	$\forall m \in M $, $F_{-1}( sk, F(pk, m) ) = m $
+\end{mytheorem}
+
+\subsection{RSA Trapdoor}
+
+The RSA trapdoor function relies on the prime factorization problem and the modular e-roots' problem. \\
+First, the prime factorization problem : given two prime numbers, it's easy to compute their product. However, given the product of two primes numbers, it is fairly difficult to find the factorization. That's mean we can communicate the primes' product publicly without lessening the security of the protocol - the two primes still has to be big enough -. In the case of RSA, the primes' product number will be used as a generator for (Z/nZ).\\
+Secondly, the modular e-roots' problem : given a number and an exponent, it is easy to compute its exponentiation in Z/nZ, but it is difficult to compute the e-root in the same group (in the math sense).
+
+
+\section{Public Key Encryption}
+
+% 3 tools : 
+% Asymmetric encryption for key-exchange : ( G, F, F-1 )
+% Symmetric encryption for communication : (E, D)
+% Hash function for integrity			 :  H
+
+% Encryption :
+% G() -> (pk, sk)
+
+% x is chosen randomly
+% E(pk, m) ->  |F(pk,x)||Es( H(x), m )|
+
+
+
+
 
 \section{El Gamal}
+
+
+
+
+
+
+
+>>>>>>> Trusted authorities and Diffie-Hellman
