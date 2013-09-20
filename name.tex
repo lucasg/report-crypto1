@@ -8,3 +8,16 @@ In this chapter, we will cover various minor parts of cryptography which does no
 \section{Key derivation}
 
 \section{Deterministic Encryption}
+
+
+\section{Arithmetic Algorithms}
+
+In this section, we will discuss big integer manipulation. Most computer have 32/64-bit architecture, while cryptography typically handle hundreds-bits number : the operations like addition or multiplication are not atomic.
+
+basic operations :
+addition -> linear time
+multiplication -> $O(n^(2))$ up to $O(n.log(n))$(asymptote). currently best : $O(n^{1.585})$.
+division with remainder -> $O(n^(2))$
+
+
+exponentiation in $Z_N$ -> $O( Multi*log(n) )$ <= $O(n^2.log(n) )
