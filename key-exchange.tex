@@ -1,5 +1,32 @@
 \chapter{Key Exchange Protocols}
 
-\section {RSA encryption}
-\section{Diffie-Hellman}
+This chapter will focus on the communication aspect of cryptography, and more exactly on the initialisation part which contains the key-exchange protocols. As we seen in the last two chapters, it exists robust systems to ensure the confidentiality and integrity of data transitions against eavesdropping and active attackers (given that those systems were correctly implemented). However, these mechanisms does not describe how the two actors (generally called Alice and Bob) exchange their secret in the first place. \\
+Key-exchange protocol is the last part of Coursera Cryptography I class and it's more detailled in the second class.
+
+\section{Trusted 3rd party}
+
+
+
+\section{Merkle Puzzles}
+Merkle puzzles has been developed as a way to exchange keys using generic symmetric ciphers between two persons without a third-party. It's constructed upon a "puzzle", which means a computational difficult problem.
+
+% Alice prepare n problems 
+% Bob solve one
+
+% Eavesdropper has n problems to solve, while Alice and Bob only one
+% Best case : O(n^2) (and we're not sure)
+% To improve the gap : use asymmetric encryption
+
+% Weak against Man-In-The-middle attacks.
+
+
+
+\section{Diffie-Hellman protocol}
+
+
+
+\section{RSA encryption}
+
+
+
 \section{El Gamal}

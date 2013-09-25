@@ -1,19 +1,52 @@
 \chapter{Integrity}
 
 
-This chapter will present the other aspect of cryptography : tampering prevention. An adversary can be able to do more than just eavesdropping : he can actually modify ciphertext messages on-the-go (using fro example a Man in the Middle attack). Therefore we need methods to ensure the non modification of the message during transmission.
+This chapter will present the other aspect of cryptography : tampering prevention. An adversary can be able to do more than just eavesdropping : he can actually modify ciphertext messages on-the-go (using fro example a Man in the Middle attack). Therefore we need methods to ensure the non modification of the message during transmission.\\
+In Dan Boneh's lecture, the integrity enforcement mechanisms are a minor part of the course, so this chapter will be quite succinct (especially since some generic constructions were already explained in the confidentiality chapter).
+
 
 \section{Message Authentication Code (MAC)}
 
-The most common way to enforce message integrity is to add a tag to the message, which will be verified upon reception. Moreover, the tag needs to be created using a secret key in order to prevent the attacker from fooling the verification algorithm.
+The most common way to enforce message integrity is to add a tag to the message, which will be verified upon reception. Moreover, the tag needs to be created using a secret key in order to prevent an attacker from fooling the verification algorithm.
 
-$MAC = (S,V)$
-S : Tag Generator
-    $S: (k,m) -> t$
-V : Verification Algorithm
-    $V(k,m,t) -> {0,1}$
-    
-\subsection{Construction from PRF}
+\begin{mydef} $MAC = (S,V)$  
+\begin{flushright}
+\begin{minipage}[t]{0.8\textwidth}
+\indent   	S : Tag Generator \\
+\indent     $S: (k,m) -> t$   \\
+\indent	V : Verification Algorithm \\
+\indent    $V(k,m,t) -> {0,1}$ \\
+\end{minipage}
+\end{flushright}
+\end{mydef}
+
+The tag and tag generation are more often called respectively "hash" and "hashing"  : a hash function is an algorithm which takes variable-length data as input and outputs a fixed-length image of the input data. While being created in order to lessen the memory footprint of databases and speed-up the lookup of elements (hash tables, caches), hashing functions are also vastly used in cryptography. 
+ 
+\subsection{Secure Mac}
+
+The experiment needed to describe the security of a MAC mechanism is the same as for the cipher's semantic security : the attacker can submit 2 messages q times, and receive the tag of n ones. If it can't forge a new valid pair (m,t) to submit to V with a significant advantage, the MAC algorithm is considered secure.
+
+\subsection{Collision Resistance}
+
+The strength of a MAC against forged tags are closely related to the algorithm's resistance against collision attacks. A collision is a pair of messages $(m_0,m_1)$ such that $H(m_0) == H(m_1)$. We can clearly see that $m_0$ and $m_1$, if the MAC is using the hash functions $H$, have great chances to have the same tag. The verification algorithm will take one for another, which is a breach of security. \\
+Therefore the algorithm for the tag generator has to be built upon collision resistant hashing functions.
+
+
+\subsection{MAC Padding}
+
+As for block ciphers, a hash algorithm works usually on a fixed length of plaintext information. However, contrary to the former, it is not possible to just pad the input text with 0's because it is insecure : the attacker can then send parts of the same message to retrieve important parts of information (block length, last digit digest ). \\
+The standard (ISO) currently used is to pad with one '1' and the rest with '0' 's.
+
+
+\section{Merkle-Damgard Paradigm}
+
+\subsection{Compression functions}
+
+
+
+\subsection{Constructions}
+
+\subsubsection{Construction from PRF}
 
 A secure MAC can be easily constructed from a PRF family. The following theorem is important since a lot of real-world MAC use it, in various environment (Internet, Banks, Defence, ..).
 
@@ -22,13 +55,12 @@ A secure MAC can be easily constructed from a PRF family. The following theorem 
     $ Adv_{MAC} \leq Adv_{PRF} + \frac{1}{|Y|} $
 \end{mytheorem}
 
+\subsubsection{CBC-MAC}
+\subsubsection{HMAC}
+\subsubsection{NMAC}
+\subsubsection{PMAC}
+\subsubsection{Carter-Wegman MAC}
 
-\subsection{CBC-MAC}
-\subsection{HMAC}
-\subsection{NMAC}
-\subsection{PMAC}
-\subsection{Carter-Wegman MAC}
 
+\section{Authenticated Encryption}	
 
-\section{Collision Resistance}
-\section{Compression functions}
