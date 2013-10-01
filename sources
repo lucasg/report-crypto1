@@ -13,3 +13,27 @@ http://cseweb.ucsd.edu/~mihir/cse207/w-prf.pdf
 Stream Ciphers:
 http://fr.wikipedia.org/wiki/Chiffrement_de_flux
 http://en.wikipedia.org/wiki/ESTREAM
+
+AES:
+http://www.moserware.com/2009/09/stick-figure-guide-to-advanced.html
+
+Merkle Puzzles:
+http://arxiv.org/pdf/1108.2316v1.pdf http://arxiv.org/abs/1108.2316
+
+
+
+Quantic attacks:
+
+
+Diffie-Hellman:
+http://eprint.iacr.org/2012/610
+http://cgi.di.uoa.gr/~aggelos/crypto/page4/assets/joux-tripartite.pdf
+
+Trusted authorities:
+http://osaka.law.miami.edu/~froomkin/articles/trusted.htm
+
+Cryptographic attacks types :
+http://www.giac.org/cissp-papers/57.pdf
+
+PRF and PRP:
+http://crypto.stanford.edu/~dabo/cs255/lectures/PRP-PRF.pdf
