@@ -25,29 +25,23 @@ X chosen uniformly dans les distributions.
 
 \subsection{Statistical test for Randomness}
 
-In cryptography, the randomness-like property for a bit generator is an important one (see unpredictability). That's why a lot of different statistical test were conceived to separate true pseudo-random generator from broken ones.
+Pseudorandomness is the property of a function to appear random, while being completely deterministic. In cryptography, the pseudorandomness property for a bit generator is an important one : the security is often built upon it since the attacker cannot predict the output. That's why a lot of different statistical test were conceived to separate true pseudorandom generators from broken ones (bit-frequency, chi-square Test, arithmetic mean, ...).
 
-For example : Frequency analysis for uniform distribution, autocorrelation, Chi-square test, ...
+\begin{mydef}
+A statistical test is an algorithm which, given a generator, ouptut 0 or 1 based on the stream of numbers generated, 1 being random and 0 deterministic.
+\end{mydef}
 
 \paragraph{Advantage \\}
 
-The advantage $Adv$ over a certain function is a statistical test A such as : 
+Let F an oracle\footnote{an oracle is a computational black box} which we want to study and G a perfect one implementing true randomness. The advantage $Adv$ over F, using the statistical test A, is: 
 \begin{mydef}
-$Adv_{F} [A,G] = | Pr[A(G(k)) == 1  - Pr[A(r) == 1] | $
-                 %pseudo-randomness      %randomness
+$Adv_{F} [A,G] = | Pr[A(G(k)) == 1  - Pr[A(G(r)) == 1] | \in  [0,1] $
 \end{mydef}
 
-                     
-An advantage "close to one" is considered to break the Pseudo-random function, because the test A can distinguish pseudo-randomness from true randomness.
-
-%\subsubsection{indistinguishably}
+An advantage "close to one"\footnote{it really depends on the security margin} is considered to break the pseudorandom function, because the test A can distinguish pseudo-randomness from true randomness.
 
 
-%\subsubsection{Random Oracle}
-
-
-
-\subsection{Pseudo-Random Functions     (PRF)}
+\subsection{Pseudo-Random Functions   (PRF)}
 
 A pseudo-random function is a fairly easily computable function (~polynomial) which simulate randomness while being completely deterministic.
 
@@ -55,6 +49,14 @@ A pseudo-random function is a fairly easily computable function (~polynomial) wh
 Let $F$ a function from $KxD$ to $R$ which maps a two set (the domain $M$ and the range $R$) using a key parameter from $K$ : the function F is a PRF if no efficient adversary with significant advantage can distinguish F from a random oracle. Pseudo-random functions are vital tools in the construction of cryptographic primitives.
 
 \paragraph{Secure PRF \\}
+
+\begin{figure}[ht!]
+	\centering
+		\includegraphics[width=0.7\textwidth]{secure-PRF.png}
+	\caption{indistinguishability game for PRF}
+	\label{fig:Cipher}
+\end{figure}
+
 
 \subsection{Pseudo-Random Permutation   (PRP)}
 
@@ -65,6 +67,14 @@ A PRP differs from a PRF in the way that the domain $D$ and the range $R$ are th
 A major propriety of the PRP (comparatively to the PRF) is that the PRP can be inverted, thus improving the decoding speed.\footnote{Another useful property is that permutation can be chained or cascaded since they all have the same working domain.}
 
 \paragraph{Secure PRP \\}
+
+
+\begin{figure}[ht!]
+	\centering
+		\includegraphics[width=0.7\textwidth]{secure-PRP.png}
+	\caption{indistinguishability game for PRP}
+	\label{fig:Cipher}
+\end{figure}
 
 \subsection{Pseudo Random Generator     (PRG)} 
 
@@ -109,7 +119,7 @@ The semantic security is often defined using a "challenge" : an experiment of th
 	\centering
 		\includegraphics[width=0.7\textwidth]{IND-CPA-Game.png}
 	\caption{Semantic security challenge}
-	\label{fig:Cipher}
+	\label{fig:SemanticSecurityChallenge}
 \end{figure}
 
 The challenger (the "defender") choose a fixed-key and a variable $b$ randomly from two values ( 0 and 1 to be simple). The attacker then will send the challenger $2*n$ messages (plain or encrypted) and the challenger only process half of them (given the value b) and send the result back to the attacker.\\
