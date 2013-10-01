@@ -2,10 +2,9 @@
 
 \chapter{Introduction}
 
-% Write some general context about cryptography
-One thing to consider is there is no such thing as perfect security in the real world : cryptography cannot prevent against all existent and futures attack vectors. Cryptography only provide ways to mitigate against such attacks : it's a trade-off between the simplicity of your transmission system ( more secure means more expensive to operate ) and the opportunity cost for the attacker who wants to break your system. 
-
-A cipher consist of en encoder and a decoder. The algorithm behind the encoder and the decoder has to be public in order to ensure the integrity and the robustness of the cipher. The ciphers are typically  open source projects, reviewed by security experts.  \\
+Cryptography is the study of ways of secure communications in presence of adversaries. In computer science, it revolves around the construction of protocols which are robust against confidentiality and tampering.\\
+\indent One thing to consider is there is no such thing as perfect security in the real world : cryptography cannot prevent against all existent and futures attack vectors. Cryptography only provide ways to mitigate against such attacks : it's a trade-off between the simplicity of your transmission system ( more secure means more expensive to operate ) and the opportunity cost for the attacker who wants to break your system. \\
+\indent A cipher consist of an encoder and a decoder. The algorithm behind the encoder and the decoder has to be public in order to ensure the integrity and the robustness of the cipher. The ciphers are typically  open source projects, reviewed by security experts and some are voted into standards by institutions such as NIST\footnote{National Institute of Standards and Technology}.  
 
 \section{Definitions}
 
@@ -15,21 +14,18 @@ A cipher consist of en encoder and a decoder. The algorithm behind the encoder a
 \emph{Equality : } &D(k, E(k,m) ) = m  
 \end{flalign*}
 
-E is often randomized whereas D is always deterministic. A cipher consist of the encoder and decoder : cipher $=$ $(E,D)$.
-
-
+The encoder E maps a message m into the ciphertext space using a parameter k (which is the secret key) and the decipher D does the reverse, using \underline{the same key k} to reveal the original message. E is often randomized (see \ref{sec:randomization} ) whereas D is always deterministic. A cipher consist of the encoder and decoder : cipher $=$ $(E,D)$.
 
 \begin{figure}[ht!]
 	\centering
 		\includegraphics[width=0.7\textwidth]{images/tata}
-	\caption{Cipher}
+	\caption{Example of a cipher}
 	\label{fig:Cipher}
 \end{figure}
 
-A common mistake is to think that an ad-hoc crypto algorithm with closed source is safer than open source standards : the big problem with closed source algorithms is that, when they are breached, the user does not know.\\
+A common mistake is to think that an ad-hoc crypto algorithm with closed source is safer than open source standards : the big problem with closed source algorithms is that, when they are breached (and they usually are at least once), the user does not know.
 
-
-Uses of crypto : 
+\paragraph{Uses of cryptography}
 \begin{itemize}
 		\item Secure communication : private conversations without eavesdropping 
 		\item Digital signatures : secure identification (no tampering)
@@ -39,7 +35,7 @@ Uses of crypto :
 
 \subsection{Trusted authority}
 
-One way to ensure confidentiality is to outsource the task to a third party which has credibility and trust, like when we give our last will to a exterior person which does not have any involvement with the family(typically a \emph{notaire}).
+One way to ensure confidentiality is to outsource the task to a third party which has credibility and trust, like when we give our last will to a exterior person which does not have any involvement with the family(typically a \emph{notary}).
 
 However, the trusted authority solution - like any centralized mechanism -  creates a single point of failure, so the trusted authority might not be always a good solution. \\
 

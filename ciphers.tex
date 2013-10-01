@@ -139,6 +139,7 @@ While being simpler and generally faster, the streams ciphers have security blin
 % Insert General Schema of block cipher encryption
 
 \subsection{Nonce and Initial Vector}
+\label{sec:randomization}
 
 In order to be protected against replay attacks , the encryption has to be "randomized" : two encryptions of the same plaintext should not result in the same ciphertext. \\
 The initial vector is used as first input of block cipher to ensure the uniqueness of the ciphetext, independently from the plaintext message : that's why it has to change with every encryption, and it is sent in plaintext along the ciphertext message. It can be implemented as a counter, but also with  a nonce.\\
