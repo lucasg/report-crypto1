@@ -19,29 +19,31 @@ $ | Pr[A(X) == 1  - Pr[A(X) == 1] |  $ \\
 $   X <- P_1      X <- P_2              $ \\
 X chosen uniformly dans les distributions.
 
-\section{Probability Remainder}
+%\section{Probability Remainder}
 
 \section{ Pseudo-Random Generation }
 
-\subsection{ Definitions }
-\subsubsection{Statistical test for Randomness}
+\subsection{Statistical test for Randomness}
 
 In cryptography, the randomness-like property for a bit generator is an important one (see unpredictability). That's why a lot of different statistical test were conceived to separate true pseudo-random generator from broken ones.
 
 For example : Frequency analysis for uniform distribution, autocorrelation, Chi-square test, ...
 
-\subsubsection{Advantage}
-The advantage Adv over a certain function is a statistical test A such as : 
+\paragraph{Advantage \\}
 
+The advantage $Adv$ over a certain function is a statistical test A such as : 
+\begin{mydef}
 $Adv_{F} [A,G] = | Pr[A(G(k)) == 1  - Pr[A(r) == 1] | $
-                   %pseudo-randomness      %randomness
+                 %pseudo-randomness      %randomness
+\end{mydef}
+
                      
 An advantage "close to one" is considered to break the Pseudo-random function, because the test A can distinguish pseudo-randomness from true randomness.
 
-\subsubsection{indistinguishability}
+%\subsubsection{indistinguishably}
 
 
-\subsubsection{Random Oracle}
+%\subsubsection{Random Oracle}
 
 
 
@@ -49,38 +51,34 @@ An advantage "close to one" is considered to break the Pseudo-random function, b
 
 A pseudo-random function is a fairly easily computable function (~polynomial) which simulate randomness while being completely deterministic.
 
-\subsubsection{Definition}
+\paragraph{Definition \\}
+Let $F$ a function from $KxD$ to $R$ which maps a two set (the domain $M$ and the range $R$) using a key parameter from $K$ : the function F is a PRF if no efficient adversary with significant advantage can distinguish F from a random oracle. Pseudo-random functions are vital tools in the construction of cryptographic primitives.
 
-$F : KxD ->  R$ 
-K : key space
-D : Function Domain
-R : Range
-
-The function F is a PRF if no efficient adversary with significant advantage can distinguish F from a random oracle. Pseudo-random functions are vital tools in the construction of cryptographic primitives.
+\paragraph{Secure PRF \\}
 
 \subsection{Pseudo-Random Permutation   (PRP)}
 
 
-\subsubsection{Definition}
+\paragraph{Definition \\}
 
-$E : KxX -> X$
-A PRP differs from a PRF : the domain D and the range R are the same. Since the function map the two same sets, we can deduce that $E(k,.)$ ( k is fixed) is bijective : it is a permutation then.
-A major propriety of the PRP (comparatively to the PRF) is that the PRP can be inverted, thus improving the decoding speed.
+A PRP differs from a PRF in the way that the domain $D$ and the range $R$ are the same. Since the function map the two same sets, we can deduce that $E(k,.)$ ( k is fixed) is bijective : it is a permutation then.
+A major propriety of the PRP (comparatively to the PRF) is that the PRP can be inverted, thus improving the decoding speed.\footnote{Another useful property is that permutation can be chained or cascaded since they all have the same working domain.}
 
+\paragraph{Secure PRP \\}
 
 \subsection{Pseudo Random Generator     (PRG)} 
 
 NB : ne pas confondre PRG et PRNG
 
-\subsubsection{Definition}
+\paragraph{Definition \\}
 
 $ G : {0,1}^s -> {0,1}^n $  with  $n>>s$, with unpredictability property
 G is deterministic, but the seed S is random
 Stream ciphers : $c = m \oplus G(k) $  (one time pad with pseudo-random generator )
 
 
-\subsubsection{Secure PRG}
-A PRG is secure if, for all "efficient" statistical test A, Adv(A,G) is negligible.
+\paragraph{Secure PRG \\}
+A PRG is secure if, for all "efficient" statistical test A, $Adv(A,G)$ is negligible.
 
 Efficient = not degenerated
 Of course we don't know all the existing efficient statistical tests so we can't prove that PRG is secure, only that we didn't found an efficient test which break it.
@@ -102,31 +100,36 @@ In layman terms, perfect secrecy means that, given two messages and the cipherte
 
 \subsection{Semantic Security}
 
-The semantic security is a weaker form of Shannon's perfect secrecy (which is not usable in reality) : the distributions $P_1 = Pr[E(k,m_1) = c , k<- K]$ and $P_2$ does not have to be equal, just computationnaly equivalent.
+The semantic security is a weaker form of Shannon's perfect secrecy (which is not usable in reality) : the distributions $P_1 = Pr[E(k,m_1) = c , k<- K]$ and $P_2$ does not have to be equal, just computationally equivalent.
 
+\paragraph{Challenge}
+The semantic security is often defined using a "challenge" : an experiment of though where and adversary has to find an important information given a certain protocol and certain rights. The challenge is the following one :
 
-\subsubsection{Eavesdropping adversary}
-    The proof for semantic security is to consider two messages $m_1$ and $m_2$. The encoder choose randomly which message to encrypt : $C_i = E( f(m_i,i), k)$ with $i = {0,1}$ .
-The attacker (or opponent) has access to $C_i$, but cannot modify it 
+\begin{figure}[ht!]
+	\centering
+		\includegraphics[width=0.7\textwidth]{IND-CPA-Game.png}
+	\caption{Semantic security challenge}
+	\label{fig:Cipher}
+\end{figure}
 
-\subsubsection{Theorem}
+The challenger (the "defender") choose a fixed-key and a variable $b$ randomly from two values ( 0 and 1 to be simple). The attacker then will send the challenger $2*n$ messages (plain or encrypted) and the challenger only process half of them (given the value b) and send the result back to the attacker.\\
+The attacker has to estimate the value $b$ chosen : if the attacker can guess the value of b with a significant advantage, the encryption cipher is considered insecure. Otherwise, it has semantic security against the corresponding attack channel.
 
-\begin{mytheorem}[Semantic Security]
-    $E$ is semantically secure if, for all adversary A, $Adv_{SS}[A,E]$ is negligible.
+\paragraph{Semantic Security against Chosen Plaintext Attack (CPA)\\}
+
+In this configuration, the attacker can choose which plaintext message(s) to send to the challenger, and has the result of the encryption of half of them. 
+
+\begin{mytheorem}[Semantic Security under CPA]
+    $E$ is semantically secure  under chosen plaintext attack if, for all adversary A, $Adv_{CPA}[A,E] = Pr()$ is negligible.
 \end{mytheorem}
 
-\subsubsection{Many-time key semantic security}
+\paragraph{Semantic Security against Chosen Ciphertext (Adaptive) Attack ($CCA-1$/$CCA-2$)\\}
 
-For the case of many-time utilisation of the same key (most common usage of symmetric security), the attacker has the right to submit 2*q messages, and receive the encryption of q ones (based on $i$). The theorem for chosen plaintext attack remain the same :
-
-\begin{mytheorem}[Chosen Plaintext Attack (CPA)]
-    $E$ is semantically secure if, for all adversary A, $Adv_{CPA}[A,E]$ is negligible.
-\end{mytheorem}
-
-Most of the ciphers are insecure against many-time key attack : to mechanism to prevent those attacks from working is to randomize the encryption using nonce or initial vector.
+In this configuration, the attacker can choose which ciphertext message(s) to send to the challenger, and has the result of the decryption of half of them. Under $CCA-2$ he can also makes incremental changes to the ciphertext sent given the output the previous decryption, enabling linear and differential attacks. \\
+The $CCA$ assumption allow the attacker a wide range of access to information : the protocols which are secure against $CCA$ are extremely useful since they can withstand a great variety of attacks \footnote{of course, there still are side-channel attacks.}.
 
 \section{Integrity}
 \subsection{Secure MAC}
 
 
-\section{Number Theory}
+%\section{Number Theory}
