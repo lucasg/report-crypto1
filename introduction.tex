@@ -52,16 +52,19 @@ A zero-knowledge proof is a signature the user present to the server, which will
 
 \subsection{History of ciphers}
 
-Cryptology is an ancient matter : all sorts of encoding scheme has been invented throughout History. \\
+Cryptology is an ancient matter : all sorts of encoding scheme has been invented throughout History. 
 
-
-\emph{Definition :} $E(k,m)$ is the encryption of message $m$ using key $k$. (the key always first ) \\
-\emph{Definition :} $D(k,c)$ is the decryption of ciphertext $c$ using key $k$. (the key always first ) 
+\begin{mydef}
+	$E(k,m)$ is the encryption of message $m$ using key $k$.(the key always first ) 
+\end{mydef}
+\begin{mydef}
+	$D(k,c)$ is the decryption of ciphertext $c$ using key $k$.(the key always first ) 
+\end{mydef}
 
 \subsubsection{Substitution cipher }
 The substitution cipher ( also called Caesar cipher in its weak form ) is a simple encoder, yet relatively effective : the key $K$ is a bijective map between two alphabets. For example, $A$ becomes $C$, $B$ becomes $O$, etc.\\
 
-\begin{table}[ht!]
+\begin{table}[h!]
     \centering
     \scalebox{0.9}{
 		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
@@ -71,11 +74,11 @@ $output$&c&o&a&h&l&z&m&v&n&e&b&q&s&j&u&k&w&r&p&g&t&i&d&x&f&y \\
             \hline
 		\end{tabular}
     }
-	\caption{Substitution table}
+	\caption{Exemple of a substitution table}
 	\label{tab:SubstitionTable}
 \end{table}
 
-Example of a encryption : 
+\paragraph{Example of a encryption : }
 \begin{alignat*}{3}
     &\text{plaintext}   & : & \text{ several flame-throwing sharks}&  \\
     & \downarrow        & : &   \downarrow & \\
