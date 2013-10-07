@@ -1,55 +1,78 @@
 \chapter{Attack Vectors}
 
-\section{Attacks on the implementation}
-Attacks from analysing the source code : buffer overflows, stack overflows, ...
-
-Analysis of the time and power required to encode/decode messages (using oscilloscopes and multimeter).
-
-\section{Fault Attacks}
-Using laser to provoke run-time segfault (by twiddling the RAM bits). The aim is to create computing errors which can reveal informations about the key.
 
 \section{Exhaustive Search Attack}
-    The Exhaustive search attack, or brute-force attacks, is to try every key possible until we retrieve the plaintext message.
-    Some ciphers are unfortunately weak against such crude attacks : the DES is one of them.
+    The Exhaustive search attack, or brute-force attack, is to try every key possible until we retrieve the plaintext message. Although very crude and somewhat inefficient, some ciphers are unfortunately weak against it: the DES is one of them.
     
-\subsection{Definition}
-Goal : given $(m_i,c_i)$ in $[1,N]$ (with N a small integer), find key k.
+\paragraph{Definition :}
+Given $(m_i,c_i)$ in $\llbracket 1,N \rrbracket$(with N a small integer), find key k.
 
-\subsection{DES Challenge (by RSA)}
-The aim of the DES Challenge is to find the key given three messages and their encryption.
-97 -> 3 months using Internet-distributed computation ("cloud").
-98 -> 3 days using EFF's deep crack
-99 -> 22 hours
-06 -> 7 days using 10 k\$'s FPGAs.
+\paragraph{DES Challenge (by RSA)\\}
+The aim of the DES Challenge is to find the secret key given three messages and their encryption. It was organized by the RSA company, to demonstrate the vulnerability of DES (the good ol' naming and shaming technique ).
 
-\subsection{Prevention}
+\begin{description}
+\item[1997 : ] 3 months using Internet-distributed computation ("cloud" computing)
+\item[1998 : ] 3 days using EFF\footnote{Electronic Frontier Foundation : a NGO focusing on net freedom}'s deep crack machine.
+\item[1999 : ] 22 hours
+\item[2006 : ] 7 days using 10k\$'s FPGAs.
+\end{description}
+
+\paragraph{Prevention}
 You only way to prevent a cipher from ESA is to augment the key size until no existing computation power can break the cipher in a reasonable time (like centuries).
+
+\section{Cryptographic attacks}
+The cryptographic attacks are the generic attack types used when talking about theoretical security (like semantic security).
+
+\paragraph{Known Plaintext  \\} The attacker has in his possession a plaintext message and its corresponding encryption.
+
+\paragraph{Cyphertext Only  \\} The attacker does not know the plaintext message and has to find out (see Cesar cipher's breaking technique).
+
+\paragraph{Chosen Plaintext/Cyphertext \\} 
+The attacker can respectively encrypt/decrypt any plaintext/cyphertext message and study the result. It is the most common paradigm when studying public key cryptography (the attacker know the public key and can encrypt any message of his will).
+
+\paragraph{Adaptative Plaintext/Cyphertext \\} 
+The attacker can iterate the encryption/decryption based on the previous result (used for linear and differential attacks).
+
+\section{Side-channel attacks}
+Side-channel attacks are "real-world" attacks, i.e. they don't rely on theoretical cryptographic knowledge but rather the implementation of ciphers. \footnote{ They are considered "inelegant", but the result is what matters, is it not ?}
+
+\paragraph{Attack on the implementation \\}
+Some perfectly secure ciphers can be compromised if they are implemented in the wrong way : buffer overflows on user input, stack overflows, information leaking, insufficient entropy, ...   
+
+\paragraph{Hardware Attacks \\}
+Another way to look at implementation is to consider the hardware : the analysis of the time and power required to encode/decode messages (using oscilloscopes and multimeter) can reveal important informations about the cipher used.
+
+\paragraph{Fault Attacks \\}
+This attack is a follow up of the previous ones : by using laser to provoke run-time segfault (by twiddling the RAM bits), the attacker's aim is to create computing errors which can reveal informations about the key.
 
 \section{Meet in the middle attacks}
 
-\subsection{Definition}
+\paragraph{Definition\\}
 The MITM attacks is a generic cryptoanalysis used originally to break n-rounds block ciphers. Given the ability to encrypt and decrypt any data, the attacker will try to find the encryption of a certain plaintext which match the decryption of another certain cyphertext. In others words, the encryption and decryption algorithm does each one half of the work and "meet".
 
-\begin{mydef}[Meet in the middle Attack]
+\begin{mydef}[Meet in the middle Attack :]
+b \newline
 \begin{minipage}[t]{0.8\textwidth}
 	Given (E,D) encryption/decryption system, \\
     Find (m,c) such that : E(m) == D(c).
 \end{minipage}
 \end{mydef}
 
-\subsection{Example}
+\paragraph{Example}
 
 A famous example which validate the theory of "more rounds equal better security" is the double-DES : once demonstrated that DES is insecure, they tried to update the standard without changing everything by simply cascading a DES into another one, using two separate keys. However, 2-DES is badly vulnerable from MITM attacks.
 
-\begin{mydef}[Challenge]
-\begin{minipage}[t]{0.8\textwidth}
+\begin{mydef}[Challenge :]
+b \newline
+\begin{minipage}[t]{0.9\textwidth}
 	Given (m,c), find $k = (k_1,k_2)$ such that $E(k_1,E(k_2,m)) == c$
 \end{minipage}
 \end{mydef}
 
-Since $k_1$ and $k_2$ are independent keys, we have : $E(k_2,m) = x = D(k_1,m) $ . Breaking a 2-DES cipher is close to break DES, just twice longer. That's why 2-DES was never used and standard chosen is 3-DES.
+Since $k_1$ and $k_2$ are independent keys, we have : $E(k_2,m) = x = D(k_1,m) $ . Breaking a $2-DES$ cipher is close to break DES, just twice longer. That's why $2-DES$ was never used and standard chosen is $3-DES$.
 
 \section{Linear and Differential Attacks}
+
 \subsection{Linear Attacks}
 \subsection{Differential Attacks}
 
@@ -58,7 +81,7 @@ Since $k_1$ and $k_2$ are independent keys, we have : $E(k_2,m) = x = D(k_1,m) $
 
 Quantum attacks are based on quantum computing. Unlike classical computers, quantum computers take advantage of quantum state superposition and entanglement to speed up solving time of equations, especially when combinatory calculus are present.
 
-\subsection{ Generic Search Problem}
+\paragraph{ Generic Search Problem}
 
 \begin{mydef}
 \begin{minipage}[t]{0.8\textwidth}
@@ -67,9 +90,10 @@ Quantum attacks are based on quantum computing. Unlike classical computers, quan
 \end{minipage}
 \end{mydef}
 
-On classical computer, the best generic solver is linear ( $O(|X|)$ ) whereas on a quantum computer, it's root-squared ( $O(|X|^{\dfrac{1}{2}})$).
+On classical computer, the best generic solver is linear ( $O(|X|)$ ) whereas on a quantum computer, it's root-squared ( $O(|X|^{\frac{1}{2}})$).
 
-\subsection{ Consequences } 
+
+\paragraph{ Consequences } 
 The practical consequence of quantum computing over cryptography is to halve the key space : a way to prevent ciphers from quantum attacks is to double the key space ( a 1024-key RSA cipher is as strong against quantum computers as a 512-key RSA cipher against classical computers).
 
 
@@ -130,7 +154,7 @@ In order to do so, the attacker will send multiple queries : each DNS resolution
 
 Attacks target the weakest link of a system : sometimes it is the human nature the weakest link. This finding led to the famous "social engineering" attacks and the less known (but way more dangerous) rubberhose attacks.
 
-\subsection{Social Engineering}
+\paragraph{Social Engineering}
 
 Social Engineering describe a motley crew of methods designed to "punching a hole" into a system from the inside, without informing the insider of what he has done. \\
 The most famous example is to leave some booby-trapped pendrives (and even more creative methods 
@@ -139,13 +163,13 @@ The most famous example is to leave some booby-trapped pendrives (and even more 
 A new type of Social Engineering has arisen with the emergence of social networks (Facebook, LinkedIn, ...) : in this type of attacks, the goal is to obtain a remote account of a target using infos about disseminated around the Web (email addresses, universities he has been, birthday, birth place, ...) and use it to gain access to his email account (using password reset and secret questions). Once the email account has been compromised, it can be used to launch phishing attacks on the real target and retrieve important secrets.
 
 
-\subsection{Rubberhose Cryptoanalysis}
+\paragraph{Rubberhose Cryptoanalysis}
 
 The rubberhose attack describe the use of force (legal, hierarchical or physical) and/or torture on a physical person in order to extract information about the system (keys, ciphers used, ...). It is difficult to prevent those attacks since they are outside the scope of cryptanalysis (most of them belong to sociology/politics). The only way to mitigate against those attacks would be agent partial-blindness or plausible deniability.
 
 \begin{figure}[hb!]
     \centering
-       \includegraphics{images/rubberhose.png}
+       \includegraphics[width=0.7\textwidth]{images/rubberhose.png}
 	\caption{Real-world 0-day exploit. \\ source : XKCD}
 	\label{fig:RC4}
 \end{figure}

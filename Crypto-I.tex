@@ -9,48 +9,49 @@
 %% Packages %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-	%Retaille les marges
-	\usepackage[top=2.54cm, bottom=2.54cm, left=2.54cm, right=2.54cm]{geometry}
+	% Page Layout
+	\usepackage[top=2.54cm, bottom=2.54cm, left=2.54cm, right=2.54cm]{geometry} % margins
 	
-	%Selection langue fran�aise
-	\usepackage[latin1]{inputenc} % encodage du code source (utile sous Linux, pas sous Window	
-	\usepackage[T1]{fontenc}
-
-	%\usepackage[cyr]{aeguill} % rajoute les caract�res ��� etc.
-	\usepackage[english]{babel} % �vite de faire pleurer Miktex � chaque caract�re accentu�e rencontr�
-	\usepackage{textcomp} % utile, mais je sais plus pourquoi
-    
-    %Package pour formules mathématiques
-    \usepackage{amsmath}
-    \usepackage[amsmath]{ntheorem}  % Mise en page des theorem
-    \usepackage{stmaryrd}           % Ajout des crochets pour intervalles entiers
-
 	
-	%Pour ins�rer des graphiques
-	\usepackage{graphicx}
+	% Encodings
+	\usepackage[latin1]{inputenc} 	% Source text encoding
+	\usepackage[T1]{fontenc}	  	% Output glyphs encoding
+	\usepackage[english]{babel}	  	% Add unicode characters
+	\usepackage{textcomp} 		  	% Add antoher set of characters
+	%\usepackage[cyr]{aeguill}    	% hyphenated symbols
+	
+    % Math
+    \usepackage{amsmath}			% Math package
+    \usepackage{amsfonts}			% Supplementary symbols
+    \usepackage[amsmath]{ntheorem}  % Theorem layouts
+    \usepackage{stmaryrd}           % special symbols for natural sets
+
+	% Graphics
+	\usepackage{graphicx}			% Graph package
 	\DeclareGraphicsExtensions{.pdf,.png,.PNG,.jpg,.jpeg} 
-	\graphicspath{ {./images/} } %Va chercher les images dans / et /images
+	\graphicspath{ {./images/} }    % look into images/ for images
     
-    %long-centered captions
-    \usepackage[justification=centering]{caption}
-    \usepackage{subcaption}
+    % Captions
+    \usepackage[justification=centering]{caption} % long-centered captions
+    \usepackage{subcaption}			% captions for subfloat
 	
-	%Pour ins�rer des documents pdf dans le latex
-	\usepackage{pdfpages} 
+	% PDF
+	\usepackage{pdfpages} 			% insert pdf as images
 	
-	%Pour g�rer les citations du style author-date
-	\usepackage[round]{natbib}
+	% Citations
+	\usepackage[round]{natbib} 		% author-date style cites
 	
-	%Pour ins�rer des tables excels en tex (macro)
-	% \usepackage{exceltex}
-	\usepackage{booktabs} % Pour faire des tableaux plus jolis
-	\usepackage{array}
+	% Table and Arrays
+	% \usepackage{exceltex} 		% insert excels tables in tex (macro)
+	\usepackage{booktabs} 			% Pretty tables
+	\usepackage{array}				% for fixed-width columns and alignments 
     
-    %Pour inserer du code
-    \usepackage{listings}
+    % Source Code
+    \usepackage{listings}			% Insert programming langage code
     
-    %Pour insérer des liens URL et des liens intradocument
-    \usepackage{hyperref}
+	% URL
+    \usepackage{hyperref}			% handle url and hyperlinks
+    %! This package must always be included last (it's a linker operation). !%
     
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  Styles
@@ -64,24 +65,25 @@
     numberstyle=\tiny,
 }
 
-% Definition and Theorem configuration
+% Definition and Theorem layouts
 \newtheorem{mydef}{Definition}
 
-\theoremstyle{break}                  % passage à la ligne 
+\theoremstyle{break}                  
 \newtheorem{mytheorem}{Theorem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Commands
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%Alias HRule pour tracer un trait
+%HRule : make a horizontal line
 \newcommand{\HRule}{\rule{0.95\textwidth}{0.5mm}}
-% alias noi = noindent
-\newcommand{\noi}{\noindent}
-% on enlève toute indentation
-\setlength\parindent{0pt}
-%alias pour XOR op.
+
+%noi = noindent
+%\newcommand{\noi}{\noindent}
+
+%alias for XOR operator.
 \newcommand{\xor}{\oplus}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Title Page
@@ -90,31 +92,57 @@
 \author{lucasg}
 
 
+% Remove every indentation (personnal style). 
+\setlength\parindent{0pt}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% BODY
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 
 \maketitle
 
-%Abstract
+%%%%%%%%%%%%%%
+%% Abstract
 \vspace*{6cm}
 \hfill
-\begin{minipage}[c]{0.6\linewidth}
-    \begin{flushright}
-    These notes are based upon the free Coursera Course called "Cryptography I", teached by Dan Boneh from Standford, as well as information gathered from Wikipedia. It's  a personal project from an amateur in the domain : it is not exempt from errors and imprecisions. This document was written using ShareLatex, a really powerful web-based editor, and shared using Github (lucasg/crypto-report1).
-    \end{flushright}
+\begin{minipage}[c]{0.8\linewidth}
+\begin{Large}
+%\begin{flushleft}
+
+These notes are based upon the free Coursera Course called "Cryptography I", teached by Dan Boneh from Standford, as well as information gathered from Wikipedia.\\
+First, it's  a personal project from an amateur in the domain : it is not exempt from errors and imprecisions (as well as grammar/typos since I am not an native English speaker).\\
+Second, the way the document is structured does not make it easy for a complete beginner to understand cryptography : I assume readers have to be somewhat proficient in mathematics and computer science to understand big-O notations, P/NP problems, and basic algebra (sets, group theory, etc.). \\
+
+This document was written using ShareLatex, a powerful web-based editor, and shared using Github (lucasg/crypto-report1).
+
+%\end{flushleft}
+\end{Large}
 \end{minipage}
 
 
-
+%%%%%%%%%%%%%%
+%% TOC
 \tableofcontents
 
+%%%%%%%%%%%%%%
+%% Chapters
 \include{introduction}
 \include{theory}
 \include{attacks}
 \include{ciphers}
 \include{integrity}
 \include{key-exchange}
+\include{name}
+
+
+%%%%%%%%%%%%%%
+%% Summary
+
+%%%%%%%%%%%%%%
+%% Cites
+
 
 \end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
