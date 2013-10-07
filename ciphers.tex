@@ -157,7 +157,7 @@ In this section will be presented the different ways to encode a plaintext using
 The most straightforward way to encrypt several blocks (and the most fragile one) : map the input block to the encryption function and concatenate the output to get the ciphertext message. 
 
 
-\begin{figure}[hb!]
+\begin{figure}[h!]
     \centering
        \includegraphics[width=\textwidth]{images/ECB_encryption.png}
 	\caption{ECB encryption implementation \\ source : Wikipedia}
@@ -168,7 +168,7 @@ The most straightforward way to encrypt several blocks (and the most fragile one
 While this method has its perks (simplicity, parallelism) it also has a gaping flaw : two identical plaintext block will result in two identical ciphertext block, which reveal a lot of information about the inner structure of the whole message. The exemple below highlight this vulnerability : 
 
 
-\begin{figure}[b]
+\begin{figure}[h!]
         \centering
         \begin{subfigure}[c]{0.27\textwidth}
                 \centering
@@ -198,16 +198,41 @@ The MMO Phantasy Star Online use to rely on Blowfish-ECB cipher for client-serve
 \paragraph{ Cipher-Block Chaining (CBC) }
 
 The major issue with ECB is that each block is treated independently : they have to be linked in some way to prevent the forge of sub-messages. The CBC mode does that by injecting the previous block's ciphertext into the next encryption block cipher : 
-% insert image
+
+\begin{figure}[h!]
+    \centering
+       \includegraphics[width=\textwidth]{images/CBC.png}
+	\caption{CBC encryption implementation \\ source : Wikipedia}
+	\label{fig:CBC_encryption_impl}
+\end{figure}
 
 
-\paragraph{ Counter (CTR) }
+\paragraph{ Counter Mode (CTR) }
+
+\begin{figure}[h!]
+    \centering
+       \includegraphics[width=\textwidth]{images/CTR.png}
+	\caption{CTR encryption implementation \\ source : Wikipedia}
+	\label{fig:CTR_encryption_impl}
+\end{figure}
 
 \paragraph{ Cipher Feedback (CFM) }
 
+\begin{figure}[h!]
+    \centering
+       \includegraphics[width=\textwidth]{images/CFB.png}
+	\caption{CFB encryption implementation \\ source : Wikipedia}
+	\label{fig:CFB_encryption_impl}
+\end{figure}
+
 \paragraph{ Output Feedback (OFM) }
 
-\paragraph{ Output Feedback (GCM) }
+\begin{figure}[h!]
+    \centering
+       \includegraphics[width=\textwidth]{images/OFB.png}
+	\caption{OFB encryption implementation \\ source : Wikipedia}
+	\label{fig:OFB_encryption_impl}
+\end{figure}
 
 
 \subsection{Data Encryption Standard (DES)}

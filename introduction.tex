@@ -79,11 +79,19 @@ $output$&c&o&a&h&l&z&m&v&n&e&b&q&s&j&u&k&w&r&p&g&t&i&d&x&f&y \\
 \end{table}
 
 \paragraph{Example of a encryption : }
-\begin{alignat*}{3}
-    &\text{plaintext}   & : & \text{ several flame-throwing sharks}&  \\
-    & \downarrow        & : &   \downarrow & \\
-    &\text{cyphertex}   & : & \text{ plilrcq   zqcslgvrudlr pvcrbp}&  \\ 
-\end{alignat*}
+
+
+\begin{table}[h!]
+    \centering
+    \scalebox{0.75}{
+		\begin{tabular}{cccccccccccccccccccccccccccccc}
+$plaintext$&:&s&e&v&e&r&a&l&•&f&l&a&m&e&t&h&r&o&w&i&n&g&•&s&h&a&r&k&s \\
+$ciphertext$&:&p&l&i&l&r&c&q&•&z&q&c&s&l&g&v&r&u&d&n&j&m&•&p&v&c&r&b&p \\
+		\end{tabular}
+    }
+	\caption{Exemple of a encryption using the substitution procedure}
+	\label{tab:ExempleSubstitutionEncryption}
+\end{table}
 
 
 The encryption is simply the substitution of every letter in the message $m$ by its counterpart in the map $K$.\\
@@ -119,16 +127,40 @@ Example of a encryption :
     &\text{cyphertex}   & : & \text{ztgqrayvqkhv}&  \\ 
 \end{alignat*}
 
+
+\begin{table}[h!]
+    \centering
+    \scalebox{0.75}{
+		\begin{tabular}{ccccccccccccccc}
+$plaintext$&:&f&l&a&m&e&•&t&h&r&o&w&e&r \\
+&&+&+&+&+&+&•&+&+&+&+&+&+&+ \\
+$key$&:&v&i&g&e&n&•&e&r&e&c&o&d&e \\
+&&=&=&=&=&=&•&=&=&=&=&=&=&= \\
+$ciphertext$&:&z&t&g&q&r&•&a&y&v&q&k&h&v \\
+		\end{tabular}
+    }
+	\caption{Exemple of a encryption using the vigenere code}
+	\label{tab:ExempleVigenereEncryption}
+\end{table}
+
 If the encryption is based on a sum of letter position in the alphabet modulo the alphabet's length, the decryption is as simple since it's a difference: 
 
-Example of a decryption : 
-\begin{alignat*}{3}
-    &\text{plaintext}   & : & \text{ztgqrayvqkhv}&  \\
-    %&\text{plaintext} &:& \text{------------}&  \\
-    &\text{key}         & : & \text{vigenerecode}&  \\
-    %&\text{plaintext} &:& \text{____________}&  \\
-    &\text{cyphertex}   & : & \text{flamethrower}&  \\ 
-\end{alignat*}
+\begin{table}[h!]
+    \centering
+    \scalebox{0.75}{
+		\begin{tabular}{ccccccccccccccc}
+$ciphertext$&:&z&t&g&q&r&•&a&y&v&q&k&h&v \\
+&&-&-&-&-&-&•&-&-&-&-&-&-&- \\
+$key$&:&v&i&g&e&n&•&e&r&e&c&o&d&e \\
+&&=&=&=&=&=&•&=&=&=&=&=&=&= \\
+$plaintext$&:&f&l&a&m&e&•&t&h&r&o&w&e&r \\
+		\end{tabular}
+    }
+	\caption{Exemple of a decryption using the vigenere code}
+	\label{tab:ExempleVigenereDecryption}
+\end{table}
+
+
 
 \begin{figure}[ht!]
     \centering
