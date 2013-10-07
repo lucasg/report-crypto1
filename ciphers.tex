@@ -107,6 +107,7 @@ The nature of stream ciphers make them easy to use for radiocommunications \foot
 Stream ciphers aren't as popular as they were before compared to block ciphers, but there are not dead : there is a project called "eStream" which identify new modern and secure stream ciphers (Salsa20, Rabbit, ...). 
 
 \section{WEP}
+\label{sec:WEP}
 
 Let's focus on WEP since it's well known that this protocol is broken and insecure.The WEP cipher is built upon the RC4 PRG  with the following seed : 
 \begin{align}
@@ -143,7 +144,7 @@ While being simpler and generally faster, the streams ciphers have security blin
 
 In order to be protected against replay attacks , the encryption has to be "randomized" : two encryptions of the same plaintext should not result in the same ciphertext. \\
 The initial vector is used as first input of block cipher to ensure the uniqueness of the ciphetext, independently from the plaintext message : that's why it has to change with every encryption, and it is sent in plaintext along the ciphertext message. It can be implemented as a counter, but also with  a nonce.\\
-The counter solution has the advantage to be simple : every time an encryption is done, just increment the variable. It has also the advantage of being asynchronous : since the IV's evolution is known, it's not useful to send the IV with the ciphertext, the sender incremented each time it encrypt a message, and the receiver each time it decipher it. However, you have to be careful to have a sufficient space for IV in order to mitigate against replay attacks (see the \cite{WEP} cipher use such IV mode and is vulnerable because IV's size is not sufficiently large )  . \\
+The counter solution has the advantage to be simple : every time an encryption is done, just increment the variable. It has also the advantage of being asynchronous : since the IV's evolution is known, it's not useful to send the IV with the ciphertext, the sender incremented each time it encrypt a message, and the receiver each time it decipher it. However, you have to be careful to have a sufficient space for IV in order to mitigate against replay attacks (the WEP cipher \ref{sec:WEP} use such an IV mode and is vulnerable because IV's size is not sufficiently large )  . \\
 The other way to randomize the encryption is to use a nonce : a arbitrary number which does not repeat twice the same value. The nonce is often created from the output of a random number generator (such as /dev/random or /dev/urandom ) with a sufficient pool of entropy to ensure a low probability of generating twice the same number. The nonce is then send along with the encrypted message. 
 
 \subsection{ Cipher Block modes of operation }
@@ -151,7 +152,7 @@ The other way to randomize the encryption is to use a nonce : a arbitrary number
 Most of the times, the length of the plaintext message will be larger than the block size the cipher operates on : the message has to be split in several blocks. The encryption of those block has to think through, since it can jeopardize the whole system. \\
 In this section will be presented the different ways to encode a plaintext using block cipher, using slight variations on the IV's introduction and each block cipher input, and describing their strength and weakness. There is one broken way to operate a block cipher ( ECB mode ) , two majors secure ones ( CBC and CTR ) , and other minors modes (GCM, ...). \\
 
-\subsubsection{ Electronic Codebook Mode (ECM) } 
+\paragraph{ Electronic Codebook Mode (ECM) } 
 
 The most straightforward way to encrypt several blocks (and the most fragile one) : map the input block to the encryption function and concatenate the output to get the ciphertext message. 
 
@@ -194,19 +195,19 @@ While this method has its perks (simplicity, parallelism) it also has a gaping f
 
 The MMO Phantasy Star Online use to rely on Blowfish-ECB cipher for client-server communications : one day some people extracted the encrypted block containing the message "Monster Defeated !" and, by sending this block multiple times, they were able to make their character gains experience faster.
 
-\subsubsection{ Cipher-Block Chaining (CBC) }
+\paragraph{ Cipher-Block Chaining (CBC) }
 
 The major issue with ECB is that each block is treated independently : they have to be linked in some way to prevent the forge of sub-messages. The CBC mode does that by injecting the previous block's ciphertext into the next encryption block cipher : 
 % insert image
 
 
-\subsubsection{ Counter (CTR) }
+\paragraph{ Counter (CTR) }
 
-\subsubsection{ Cipher Feedback (CFM) }
+\paragraph{ Cipher Feedback (CFM) }
 
-\subsubsection{ Output Feedback (OFM) }
+\paragraph{ Output Feedback (OFM) }
 
-\subsubsection{ Output Feedback (GCM) }
+\paragraph{ Output Feedback (GCM) }
 
 
 \subsection{Data Encryption Standard (DES)}
