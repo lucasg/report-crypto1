@@ -44,10 +44,24 @@ This exchange is secure against eavesdropping, but not against Man-in-the-Middle
 \paragraph{Multi-party communication}
 As seen previously the Diffie-Hellman protocol gives a secure way for two parties to exchange a secret. What about more than two people ? Unfortunately, this a currently an open problem \footnote{there is nonetheless a simple solution for 3 parties.} : there is no efficient way to create a multi-party shared secret.
 
-\section{RSA encryption}
+
+\section{Public Key Encryption}
+
+% 3 tools : 
+% Asymmetric encryption for key-exchange : ( G, F, F-1 )
+% Symmetric encryption for communication : (E, D)
+% Hash function for integrity			 :  H
+
+% Encryption :
+% G() -> (pk, sk)
+
+% x is chosen randomly
+% E(pk, m) ->  |F(pk,x)||Es( H(x), m )|
+
+\subsection{RSA encryption}
 
 
-\subsection{Trapdoor Functions}
+\paragraph{Trapdoor Functions}
 
 RSA encryption relies heavily on trapdoor functions for security. Trapdoor functions - or "one-way functions" - are easily computable in one direction, yet difficult in the other one \footnote{"easy" and "hard" does not have any formal meaning, we just look at difficulty from a empirical point-of-view}. \\
 
@@ -63,35 +77,37 @@ In cryptography, a trapdoor function is a triplet $(G, F, F_{-1})$ where :
 	$\forall m \in M $, $F_{-1}( sk, F(pk, m) ) = m $
 \end{mytheorem}
 
-\subsection{RSA Trapdoor}
+\paragraph{RSA Trapdoor}
 
 The RSA trapdoor function relies on the prime factorization problem and the modular e-roots' problem. \\
 First, the prime factorization problem : given two prime numbers, it's easy to compute their product. However, given the product of two primes numbers, it is fairly difficult to find the factorization. That's mean we can communicate the primes' product publicly without lessening the security of the protocol - the two primes still has to be big enough -. In the case of RSA, the primes' product number will be used as a generator for (Z/nZ).\\
 Secondly, the modular e-roots' problem : given a number and an exponent, it is easy to compute its exponentiation in Z/nZ, but it is difficult to compute the e-root in the same group (in the math sense).
 
 
-\section{Public Key Encryption}
+\subsection{El Gamal}
 
-% 3 tools : 
-% Asymmetric encryption for key-exchange : ( G, F, F-1 )
-% Symmetric encryption for communication : (E, D)
-% Hash function for integrity			 :  H
+El Gamal use Diffie-Hellman protocol to create a secure public-key protocol. It's currently used by GPG, some version of PGP and the algorithm isn't patented like RSA's. 
 
-% Encryption :
-% G() -> (pk, sk)
+\paragraph{Definition \\}
 
-% x is chosen randomly
-% E(pk, m) ->  |F(pk,x)||Es( H(x), m )|
+ElGamal is built from a cyclic finite group $G$ ( $\mathbb{Z}_p$ for example, with p a "big" prime number ) : let $g$ be a generator\footnote{a generator g can build the set G only from it's geometric sequence : ${g^i, i\in N} == G$.}  of $G$. Like any other authenticated encryption system, it has a symmetric cipher $(E,D)$ for encryption and a hash function $H$ for integrity.
+
+\paragraph{Key Generation :}
+ Alice and Bob choose respectively a and b from the set of powers used to generate $G$, and send to the other party resp. $g^a$ and $g^b$ which are used in the Diffie-Hellman protocol. \\
+ 
+\begin{itemize}
+	\item Alice's secret key : $a$
+	\item Alice's public key : $pk = (g, g^a)$
+	\item Bob's secret key : $b$
+	\item Bob's public key : $pk = (g, g^b)$
+\end{itemize}
+ 
+\paragraph{Encryption :}
 
 
 
 
-
-\section{El Gamal}
-
-
-
-
+\paragraph{Security : \\}
 
 
 
