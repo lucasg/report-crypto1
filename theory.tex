@@ -2,6 +2,7 @@
 
 \section{Definitions}
 
+
 \subsection{Symmetric/Asymmetric Ciphers}
 
 \begin{mydef}
@@ -34,7 +35,7 @@ The symmetric-key encryption is the oldest class of cryptography process. The ma
 Pseudorandomness is the property of a function to appear random, while being completely deterministic. In cryptography, the pseudorandomness property for a bit generator is an important one : the security is often built upon it since the attacker cannot predict the output. That's why a lot of different statistical test were conceived to separate true pseudorandom generators from broken ones (bit-frequency, chi-square Test, arithmetic mean, ...).
 
 \begin{mydef}
-A statistical test is an algorithm which, given a generator, ouptut 0 or 1 based on the stream of numbers generated, 1 being random and 0 deterministic.
+A statistical test is an algorithm which, given a generator, output 0 or 1 based on the stream of numbers generated, 1 being random and 0 deterministic.
 \end{mydef}
 
 \paragraph{Advantage \\}
@@ -154,7 +155,24 @@ In this configuration, the attacker can choose which ciphertext message(s) to se
 The $CCA$ assumption allow the attacker a wide range of access to information : the protocols which are secure against $CCA$ are extremely useful since they can withstand a great variety of attacks \footnote{of course, there still are side-channel attacks.}.
 
 \section{Integrity}
+
 \subsection{Secure MAC}
+
+The challenge used to define MAC security is a bit different from the one for semantic security : the challenger choose a key randomly. The attacker can submit $n$ messages $m_i$ and receive their corresponding tags $t_i$. Then he can submit \underline{a new} forged message-tag pair $(m,t)$ which will be verified by the challenger. If the challenger certified the pair to be true, the MAC protocol is considered insecure, otherwise it is secure.
+
+\begin{figure}[ht!]
+	\centering
+		\includegraphics[width=0.7\textwidth]{IND-CPA-MAC-Game.png}
+	\caption{MAC integrity challenge}
+	\label{fig:MACIntegrityChallenge}
+\end{figure}
+
+\begin{mydef}
+I$=(S,V)$ is considered secure if $\forall$ efficient statistical test A, 
+\begin{flushright}
+$Adv_{MAC}[A,I] = Pr[ b == 1] $ is negligible.
+\end{flushright} 
+\end{mydef}
 
 
 %\section{Number Theory}
