@@ -120,13 +120,6 @@ The Caesar cipher is a simpler (and weaker) version of the substitution cipher :
 \subsubsection{ Vigenere cipher }
 
 The  Vigenere cipher is built from the substitution code. The cipher use a work as key : every character will be used as a Caesar cipher encryption scheme. 
-Example of a encryption : 
-\begin{alignat*}{3}
-    &\text{plaintext}   & : & \text{flamethrower}&  \\
-    &\text{key}         & : & \text{vigenerecode}&  \\
-    &\text{cyphertex}   & : & \text{ztgqrayvqkhv}&  \\ 
-\end{alignat*}
-
 
 \begin{table}[h!]
     \centering
@@ -176,13 +169,22 @@ The Vigenere code is a fairly simple encryption scheme yet it were quite powerfu
 
 
 On a side note, if the key is smaller than the encoding message, they key is repeated and padded to match the message's length:
-\begin{alignat*}{3}
-    &\text{plaintext}   & : & \text{several flamethrowing sharks}&  \\
-    %&\text{plaintext} &:& \text{+++++++ +++++++++++++ ++++++}&  \\
-    &\text{plaintext}   & : & \text{smallsm allsmallsmall smalls}&  \\
-    %&\text{plaintext} &:& \text{____________}&  \\ 
-    &\text{cyphertex}   & : & \text{flamethrower}&  \\ 
-\end{alignat*}
+
+\begin{table}[h!]
+    \centering
+    \scalebox{0.75}{
+		\begin{tabular}{cccccccccccccccccccccccccccc}
+$ciphertext$&:&s&e&v&e&r&a&l&f&l&a&m&e&t&h&r&o&w&i&n&g&s&h&a&r&k&s \\
+            & &+&+&+&+&+&+&+&+&+&+&+&+&+&+&+&+&+&+&+&+&+&+&+&+&+&+ \\
+       $key$&:&s&m&a&l&l&s&m&a&l&l&s&m&a&l&l&s&m&a&l&l&s&m&a&l&l&s \\
+            & &=&=&=&=&=&=&=&=&=&=&=&=&=&=&=&=&=&=&=&=&=&=&=&=&=&= \\
+ $plaintext$&:&f&l&a&m&e&•&t&h&r&o&w&e&r \\
+		\end{tabular}
+    }
+	\caption{Exemple of an encryption using a padded key.}
+	\label{tab:PaddedVignereEncryption}
+\end{table}
+
 
 
 \subsubsection{Enigma}
