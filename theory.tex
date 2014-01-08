@@ -98,7 +98,10 @@ The challenge for PRP is not much different from the one on PRF : see \ref{sec:I
 
 A pseudo random generator (PRG) is a deterministic bit generator with the property of  unpredictability :
 \begin{mydef}
-$ G : \llbracket  0,1 \rrbracket ^s -> \llbracket  0,1 \rrbracket ^n $  with  $n>>s$. \\ $S = \llbracket  0,1 \rrbracket ^s$ is often called "the seed" and is randomly chosen. 
+$ G : \llbracket  0,1 \rrbracket ^s -> \llbracket  0,1 \rrbracket ^n $  with  $n>>s$. 
+
+$ G : \flushright	 $S = \llbracket  0,1 \rrbracket ^s$ is often called "the seed" and is randomly chosen. 
+
 \end{mydef}
 
 Stream ciphers are easily built from PRG : $c = m \oplus G(k) $  (one time pad with pseudo-random generator )
@@ -146,7 +149,9 @@ The attacker has to estimate the value $b$ chosen : if the attacker can guess th
 In this configuration, the attacker can choose which plaintext message(s) to send to the challenger, and has the result of the encryption of half of them. 
 
 \begin{mytheorem}[Semantic Security under CPA]
-    $E$ is semantically secure  under chosen plaintext attack if, for all adversary A, $Adv_{CPA}[A,E] = Pr()$ is negligible.
+$E$ is semantically secure  under chosen plaintext attack if, for all adversary A,
+     
+\flushright	 for all adversary A, $Adv_{CPA}[A,E] = Pr()$ is negligible.
 \end{mytheorem}
 
 \paragraph{Semantic Security against Chosen Ciphertext (Adaptive) Attack ($CCA-1$/$CCA-2$)\\}
