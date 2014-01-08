@@ -207,7 +207,17 @@ The major issue with ECB is that each block is treated independently : they have
 \end{figure}
 
 
+\begin{mytheorem}[CBC Semantic Security]
+   $\forall L>0$, if E is a secure PRP over (K,X), \\
+   then $E_{CBC}$ is a semantically secure cipher under CPA over $(K,X^L,X^{L+1})$. \\
+    Moreover : $Adv_{CPA}[A,E_{CBC}] \leq 2.Adv_{PRP}[B,E] + 2.\frac{q^2.L^2}{|X|} $. \footnote{where q is the number of messages encrypted using the key k, and L the length of the messages.}
+\end{mytheorem}
+
 \paragraph{ Counter Mode (CTR) }
+
+With the CBC mode, the counter mode is the most used method for block cipher operations. The CTR procedure use a counter (which can be initialized using a nonce, but we will use 0 here to simplify) which is encrypted using the secret key and then XOR'd with the current block to obtain the encrypted data block. \\
+The decryption is symetrical : encrypt the same counter using the secret key, and XOR the encrypted block to retrieve the plaintext data. \\
+CTR mode of operation has many advantages over CBC mode : it can be run in parallel, and the emitter and receiver are not obliged to be in sync for the recipient to be able to decrypt (even partially) the data.  
 
 \begin{figure}[h!]
     \centering
@@ -215,6 +225,18 @@ The major issue with ECB is that each block is treated independently : they have
 	\caption{CTR encryption implementation \\ source : Wikipedia}
 	\label{fig:CTR_encryption_impl}
 \end{figure}
+
+\begin{mytheorem}[CTR Semantic Security]
+
+$\forall L>0$, if F is a secure PRF over (K,X), then $E_{CTR}$ is a semantically secure cipher under CPA over $(K,X^L,X^{L+1})$.
+
+$Adv_{CPA}[A,E_{CTR}] \leq 2.Adv_{PRP}[B,F] + 2.q^2.L/|H| $
+q : nb of messages encrypted using key k
+H : length of the message
+\end{mytheorem}
+
+CTR construction is a bit better than CBC since the advantage is linear in the message's length (for CBC it is squared) and the algorithm is parallel (whereas it's sequential for CBC) which is easier to speed up (using FPGA or ASIC).
+
 
 \paragraph{ Cipher Feedback (CFM) }
 
