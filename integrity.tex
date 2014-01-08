@@ -22,7 +22,7 @@ The most common way to enforce message integrity is to add a tag to the message,
 \end{flushright}
 \end{mydef}
 
-The tag and tag generation are more often called respectively "hash" and "hashing"  : a hash function is an algorithm which takes variable-length data as input and outputs a fixed-length image of the input data. While being created in order to lessen the memory footprint of databases and speed-up the lookup of elements (hash tables, caches), hashing functions are also vastly used in cryptography. 
+The tag and tag generation are more often called respectively ``hash'' and ``hashing''  : a hash function is an algorithm which takes variable-length data as input and outputs a fixed-length image of the input data. While being created in order to lessen the memory footprint of databases and speed-up the lookup of elements (hash tables, caches), hashing functions are also vastly used in cryptography. 
  
 \subsection{Secure Mac}
 
@@ -38,7 +38,7 @@ Therefore the algorithm for the tag generator has to be built upon collision res
 \label{sec:ISOPadding}
 
 As for block ciphers, a hash algorithm works usually on a fixed length of plaintext information. However, contrary to the former, it is not possible to just pad the input text with 0's because it is insecure : the attacker can then send parts of the same message to retrieve important parts of information (block length, last digit digest ). \\
-The standard (ISO) currently used is to pad with one '1' and the rest with '0' 's.
+The standard (ISO) currently used is to pad with one $1$ and the rest with $0$'s.
 
 
 \section{Constructions}

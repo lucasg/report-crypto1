@@ -46,7 +46,7 @@ However, the trusted authority solution - like any centralized mechanism -  crea
 
 \textit{Aim of cryptography} : prove that, under a certain threat vector, forge the signature comes to solve a NP-problem. \\
 
-The definition of a NP-problem is that it is computationally "hard" to solve (non-deterministic polynomial time), but easy to verify a solution (called signature).
+The definition of a NP-problem is that it is computationally ``hard'' to solve (non-deterministic polynomial time), but easy to verify a solution (called signature).
 
 A zero-knowledge proof is a signature the user present to the server, which will answer true or false based on the signature's validity. Under zero-knowledge hypothesis, the user does not learn anything more than the validity of the signature.
 
@@ -95,7 +95,7 @@ $ciphertext$&:&p&l&i&l&r&c&q&•&z&q&c&s&l&g&v&r&u&d&n&j&m&•&p&v&c&r&b&p \\
 
 
 The encryption is simply the substitution of every letter in the message $m$ by its counterpart in the map $K$.\\
-The substitution cipher is however breakable just by looking at ciphertexts. The study of the letters' frequencies in the ciphertexts can give huge informations on the map $K$. In English, the letter "$e$" is the most used so, by looking which letter is the most used in the ciphertexts, we can give a pretty good guess of the substitution of "$e$".\\
+The substitution cipher is however breakable just by looking at ciphertexts. The study of the letters' frequencies in the ciphertexts can give huge informations on the map $K$. In English, the letter $e$ is the most used so, by looking which letter is the most used in the ciphertexts, we can give a pretty good guess of the substitution of $e$.\\
 
 \begin{figure}[ht!]
     \centering
@@ -121,7 +121,7 @@ The Caesar cipher is a simpler (and weaker) version of the substitution cipher :
 
 The  Vigenere cipher is built from the substitution code. The cipher use a work as key : every character will be used as a Caesar cipher encryption scheme. 
 
-\begin{table}[h!]
+\begin{table}[ht!]
     \centering
     \scalebox{0.75}{
 		\begin{tabular}{ccccccccccccccc}
@@ -138,7 +138,7 @@ $ciphertext$&:&z&t&g&q&r&•&a&y&v&q&k&h&v \\
 
 If the encryption is based on a sum of letter position in the alphabet modulo the alphabet's length, the decryption is as simple since it's a difference: 
 
-\begin{table}[h!]
+\begin{table}[ht!]
     \centering
     \scalebox{0.75}{
 		\begin{tabular}{ccccccccccccccc}
@@ -208,17 +208,17 @@ The enigma machine is a device built by a German company around 1920 and consist
         \caption{Enigma rotor : the rotor rotate by a increment for every new input, which lead to a different substitution table. \\ Source : www.bibmath.net }\label{fig:enigma_rotors}
 \end{figure}
 
-In order to strengthen the protocol, a typical Enigma machine use 3 rotors and a reflector\footnote{There is also a plugboard, which swap at most two pairs of letters.}. The reflector is a fixed rotor which acts as a mirror (it 's a simple substitution cipher) and each rotor is incremented by a special transition from the rotor on the left (apart from the most left one, which is incremented at each new input). In this configuration, the rotors' configurations act as public keys while the rotors' initial position as well as the rotors' order is the private one. The rotors can be sold or stolen without revealing anything about the encryption (apart from degenerate rotor configurations). The machine being symmetrical, the cipher is symmetric too : using the same private key, typing the ciphertext into the machine will print the plaintext message\footnote{Mathematical proof of the Enigma's symmetrical property can be found here : ??? .}.
+In order to strengthen the protocol, a typical Enigma machine use 3 rotors and a reflector\footnote{There is also a plugboard, which swap at most two pairs of letters.}. The reflector is a fixed rotor which acts as a mirror (it's a simple substitution cipher) and each rotor is incremented by a special transition from the rotor on the left (apart from the most left one, which is incremented at each new input). In this configuration, the rotors' configurations act as public keys while the rotors' initial position as well as the rotors' order is the private one. The rotors can be sold or stolen without revealing anything about the encryption (apart from degenerate rotor configurations). The machine being symmetrical, the cipher is symmetric too : using the same private key, typing the ciphertext into the machine will print the plaintext message\footnote{Mathematical proof of the Enigma's symmetrical property can be found here : ??? .}.
 
 
 \begin{figure}[ht!]
     \centering
-        \includegraphics[width=0.7\textwidth]{images/Enigma_3rotors}
+        \includegraphics{images/Enigma_3rotors}
     \caption{ Enigma machine with 3 rotors and a reflector.\\ source : Wikipedia}
 	\label{fig:enigma_3rotors}
 \end{figure}
 
-The enigma machines were largely used during World War II by the German Army as a crypto-system. The breaking of Enigma did occupy a lot of mathematicians and logicians at that time, and bring numerous breakthroughs in cryptology. Finally, Alan Turing \footnote{also known as the most badass computer scientist of the 20th century} did crack the cipher using "crib" techniques : by analysing ciphertexts and some partial plaintexts (such as headers, known contents,...), it was possible to deduce the inner structure of the machine, and creating an automatic decipher called \emph{Bombe}.
+The enigma machines were largely used during World War II by the German Army as a crypto-system. The breaking of Enigma did occupy a lot of mathematicians and logicians at that time, and bring numerous breakthroughs in cryptology. Finally, Alan Turing \footnote{also known as the most badass computer scientist of the 20th century} did crack the cipher using ``crib'' techniques : by analysing ciphertexts and some partial plaintexts (such as headers, known contents,...), it was possible to deduce the inner structure of the machine, and creating an automatic decipher called \emph{Bombe}.
 
 
 

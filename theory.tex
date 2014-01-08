@@ -13,14 +13,14 @@
 
 \begin{mydef}
 \begin{minipage}[t]{0.8\textwidth}
-    A cipher is asymmetric if the encryption $E$ and the decryption $D$ do not the same key. The encryption key is often called "public key" and the decryption one "private key".
+    A cipher is asymmetric if the encryption $E$ and the decryption $D$ do not the same key. The encryption key is often called ``public key'' and the decryption one ``private key''.
 \end{minipage}
 \end{mydef}
 
 The symmetric-key encryption is the oldest class of cryptography process. The major flaw of symmetric ciphers is the obligation for both parties (sender and receiver) to share the secret (the key). Nowadays, it is recommended to use non-symmetric encryption (also known as public-key encryption).
 
 %\subsection{Computationally equivalence}
-%Definition : two distributions $P_1$ and $P_2$ are computationally equivalent if , %for every "efficient" polynomial statistical test A, \\
+%Definition : two distributions $P_1$ and $P_2$ are computationally equivalent if , %for every ``efficient'' polynomial statistical test A, \\
 
 %$ | Pr[A(X) == 1  - Pr[A(X) == 1] |  $ \\
 %$   X <- P_1      X <- P_2              $ \\
@@ -46,7 +46,7 @@ Let F an oracle\footnote{an oracle is a computational black box} which we want t
 $Adv_{F} [A,G] = | Pr[A(G(k)) == 1  - Pr[A(G(r)) == 1] | \in  [0,1] $
 \end{mydef}
 
-An advantage "close to one"\footnote{it really depends on the security margin} is considered to break the pseudorandom function, because the test A can distinguish pseudo-randomness from true randomness.
+An advantage ``close to one''\footnote{it really depends on the security margin} is considered to break the pseudorandom function, because the test A can distinguish pseudo-randomness from true randomness.
 
 
 \subsection{Pseudo-Random Functions   (PRF)}
@@ -100,7 +100,7 @@ A pseudo random generator (PRG) is a deterministic bit generator with the proper
 \begin{mydef}
 $ G : \llbracket  0,1 \rrbracket ^s -> \llbracket  0,1 \rrbracket ^n $  with  $n>>s$. 
 
-$ G : \flushright	 $S = \llbracket  0,1 \rrbracket ^s$ is often called "the seed" and is randomly chosen. 
+\flushright	 $S = \llbracket  0,1 \rrbracket ^s$ is often called ``the seed'' and is randomly chosen. 
 
 \end{mydef}
 
@@ -108,7 +108,7 @@ Stream ciphers are easily built from PRG : $c = m \oplus G(k) $  (one time pad w
 
 
 \paragraph{Secure PRG \\}
-A PRG is secure if, for all "efficient" statistical test A, $Adv(A,G)$ is negligible.
+A PRG is secure if, for all ``efficient'' statistical test A, $Adv(A,G)$ is negligible.
 
 On a side note, we don't know all the existing efficient statistical tests so we can't prove that PRG is secure, we can only prove we didn't found an efficient test which break it.
 
@@ -132,7 +132,7 @@ In layman terms, perfect secrecy means that, given two messages and the cipherte
 The semantic security is a weaker form of Shannon's perfect secrecy (which is not usable in reality) : the distributions $P_1 = Pr[E(k,m_1) = c , k<- K]$ and $P_2$ does not have to be equal, just computationally equivalent.
 
 \paragraph{Challenge}
-The semantic security is often defined using a "challenge" : an experiment of though where and adversary has to find an important information given a certain protocol and certain rights. The challenge is the following one :
+The semantic security is often defined using a ``challenge'' : an experiment of though where and adversary has to find an important information given a certain protocol and certain rights. The challenge is the following one :
 
 \begin{figure}[ht!]
 	\centering
@@ -141,7 +141,7 @@ The semantic security is often defined using a "challenge" : an experiment of th
 	\label{fig:SemanticSecurityChallenge}
 \end{figure}
 
-The challenger (the "defender") choose a fixed-key and a variable $b$ randomly from two values ( 0 and 1 to be simple). The attacker then will send the challenger $2*n$ messages (plain or encrypted) and the challenger only process half of them (given the value b) and send the result back to the attacker.\\
+The challenger (the ``defender'') choose a fixed-key and a variable $b$ randomly from two values ( 0 and 1 to be simple). The attacker then will send the challenger $2*n$ messages (plain or encrypted) and the challenger only process half of them (given the value b) and send the result back to the attacker.\\
 The attacker has to estimate the value $b$ chosen : if the attacker can guess the value of b with a significant advantage, the encryption cipher is considered insecure. Otherwise, it has semantic security against the corresponding attack channel.
 
 \paragraph{Semantic Security against Chosen Plaintext Attack (CPA)\\}
@@ -151,7 +151,7 @@ In this configuration, the attacker can choose which plaintext message(s) to sen
 \begin{mytheorem}[Semantic Security under CPA]
 $E$ is semantically secure  under chosen plaintext attack if, for all adversary A,
      
-\flushright	 for all adversary A, $Adv_{CPA}[A,E] = Pr()$ is negligible.
+\flushright	  $Adv_{CPA}[A,E] = Pr()$ is negligible.
 \end{mytheorem}
 
 \paragraph{Semantic Security against Chosen Ciphertext (Adaptive) Attack ($CCA-1$/$CCA-2$)\\}

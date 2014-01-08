@@ -14,7 +14,7 @@ The One-Time Pad (OTP) is a symmetric cipher created for telegraph messages encr
 
 \subsection{XOR operator}
 
-The OTP is built from XOR operations. Since this operator has a lot of applications in cryptography, let revise it : the XOR operator is an "exclusive OR", in other words a and b can be true, but not both.
+The OTP is built from XOR operations. Since this operator has a lot of applications in cryptography, a quick reminder : the XOR operator is an ``exclusive OR '', in other words $a$ and $b$ can be true, but not both.
 
 
 \begin{mydef}
@@ -61,7 +61,7 @@ An example of encryption :
 \end{align*}
 To encrypt text-based data, one must first use a character-encoding scheme (ASCII and  EBCDIC being the most well-known) to translate characters into integer values which will be XOR'd. \\
 
-Encryption of "HELLO" using "XMCKL" as a key, and letter's position in the alphabet as an encoding scheme :
+Encryption of ``HELLO'' using ``XMCKL'' as a key, and letter's position in the alphabet as an encoding scheme :
 \begin{align*}
     msg: & H E L L O        \\
     msg (binary) : & 7 4 11 11 14 \\
@@ -85,7 +85,7 @@ One-time Pad's main property is to be information-theoretically unbreakable \foo
 \subsection{Drawbacks}
 
 \subsubsection{Many-time pad}
-The OTP is unfortunately vulnerable to many-times encryption : if an attacker recover several cyphertexts ${c_1,c_2,...,c_n}$ encoded with the same key $k$, he is able to recover several parts of plaintext message. The attacks consists of computing $c_x\xor c_y$ operations, nullifying the encrypting key to reveal $m_x\xor m_y$. Given the character encoding scheme, it is fairly easy to reveal significant parts of text. That's why the OTP is called "One-Time" : the key must change every time there is an encryption. 
+The OTP is unfortunately vulnerable to many-times encryption : if an attacker recover several cyphertexts ${c_1,c_2,...,c_n}$ encoded with the same key $k$, he is able to recover several parts of plaintext message. The attacks consists of computing $c_x\xor c_y$ operations, nullifying the encrypting key to reveal $m_x\xor m_y$. Given the character encoding scheme, it is fairly easy to reveal significant parts of text. That's why the OTP is called ``One-Time'' : the key must change every time there is an encryption. 
 
 \subsubsection{Symmetrical Property}
 The symmetrical nature of the One-Time pad encryption enforce the fact that the key must be shared between the emitter and the receptor. It particularly annoying in the OTP case, since the key as to change every time there is an encryption, and since the key must be long (see below).
@@ -104,7 +104,7 @@ The One-Time pad is the first - and only - cipher which provides perfect secrecy
 
 In order to be able to reuse the same key for several messages, two types of ciphers were created : stream ciphers and block ciphers. The stream ciphers operate on unknown length messages while block ciphers needs to known the message's size and slice it into block before encrypt it.\\
 The nature of stream ciphers make them easy to use for radiocommunications \footnote{The Enigma machine is a stream cipher} : RC4 for WEP\footnote{WIFI Exchange Protocol}, A5/1 for GSM, E0 for Bluetooth, \dots Their small complexity make them also easier to port to hardware ASIC. However, there were also historically easier to break than block ciphers.\\
-Stream ciphers aren't as popular as they were before compared to block ciphers, but there are not dead : there is a project called "eStream" which identify new modern and secure stream ciphers (Salsa20, Rabbit, ...). 
+Stream ciphers aren't as popular as they were before compared to block ciphers, but there are not dead : there is a project called ``eStream'' which identify new modern and secure stream ciphers (Salsa20, Rabbit, ...). 
 
 \section{WEP}
 \label{sec:WEP}
@@ -135,14 +135,14 @@ It is a serious weakness, since we can use a two-time pad attack on packet $0$ a
 
 \section{ Block Ciphers }
 
-While being simpler and generally faster, the streams ciphers have security blind spots, especially against replay attacks. Block ciphers has been created to lessen this issue, while allowing multiple encoding with the same key. The block ciphers work on fixed size chunks of data - called "blocks" - and are often constructed by iterating a one-time cipher multiple times, using an initial vector sent along the ciphertext and key expansion scheme to decompress the root key.
+While being simpler and generally faster, the streams ciphers have security blind spots, especially against replay attacks. Block ciphers has been created to lessen this issue, while allowing multiple encoding with the same key. The block ciphers work on fixed size chunks of data - called ``blocks'' - and are often constructed by iterating a one-time cipher multiple times, using an initial vector sent along the ciphertext and key expansion scheme to decompress the root key.
 
 % Insert General Schema of block cipher encryption
 
 \subsection{Nonce and Initial Vector}
 \label{sec:randomization}
 
-In order to be protected against replay attacks , the encryption has to be "randomized" : two encryptions of the same plaintext should not result in the same ciphertext. \\
+In order to be protected against replay attacks , the encryption has to be ``randomized'' : two encryptions of the same plaintext should not result in the same ciphertext. \\
 The initial vector is used as first input of block cipher to ensure the uniqueness of the ciphetext, independently from the plaintext message : that's why it has to change with every encryption, and it is sent in plaintext along the ciphertext message. It can be implemented as a counter, but also with  a nonce.\\
 The counter solution has the advantage to be simple : every time an encryption is done, just increment the variable. It has also the advantage of being asynchronous : since the IV's evolution is known, it's not useful to send the IV with the ciphertext, the sender incremented each time it encrypt a message, and the receiver each time it decipher it. However, you have to be careful to have a sufficient space for IV in order to mitigate against replay attacks (the WEP cipher \ref{sec:WEP} use such an IV mode and is vulnerable because IV's size is not sufficiently large )  . \\
 The other way to randomize the encryption is to use a nonce : a arbitrary number which does not repeat twice the same value. The nonce is often created from the output of a random number generator (such as /dev/random or /dev/urandom ) with a sufficient pool of entropy to ensure a low probability of generating twice the same number. The nonce is then send along with the encrypted message. 
@@ -193,7 +193,7 @@ While this method has its perks (simplicity, parallelism) it also has a gaping f
         \caption{Pictures of animals}\label{fig:ECB_flaw}
 \end{figure}
 
-The MMO Phantasy Star Online use to rely on Blowfish-ECB cipher for client-server communications : one day some people extracted the encrypted block containing the message "Monster Defeated !" and, by sending this block multiple times, they were able to make their character gains experience faster.
+The MMO Phantasy Star Online use to rely on Blowfish-ECB cipher for client-server communications : one day some people extracted the encrypted block containing the message ``Monster Defeated !'' and, by sending this block multiple times, they were able to make their character gains experience faster.
 
 \paragraph{ Cipher-Block Chaining (CBC) }
 
@@ -259,11 +259,11 @@ CTR construction is a bit better than CBC since the advantage is linear in the m
 
 \subsection{Data Encryption Standard (DES)}
 
-The DES is a US standard created by the US. DOD \footnote{Department of Defence} in the 70's and built upon Feistel Networks as PRF. It has been broken by "exhaustive search" attacks in 1997 (and by others ways since).
+The DES is a US standard created by the US. DOD \footnote{Department of Defence} in the 70's and built upon Feistel Networks as PRF. It has been broken by ``exhaustive search'' attacks in 1997 (and by others ways since).
 
 \subsubsection{Feistel Network}
 
-The backbone architecture behind DES is a 16-round Feistel cipher. The Feisel cipher has interesting properties and it's construct in the following manner : the input message (plaintext or ciphertext) is split in two parts $L_0$ and $R_0$ and feed through the structure. At each "round", an arbitrary function $f_i$ scramble the input message $L_i$ before xor'ing it with $R_i$.
+The backbone architecture behind DES is a 16-round Feistel cipher. The Feisel cipher has interesting properties and it's construct in the following manner : the input message (plaintext or ciphertext) is split in two parts $L_0$ and $R_0$ and feed through the structure. At each ``round'', an arbitrary function $f_i$ scramble the input message $L_i$ before xor'ing it with $R_i$.
 
 \begin{figure}[ht!]
     \centering
@@ -324,7 +324,7 @@ The DES construction may be secure against cyphertext attacks in theory, it is n
 
 \subsubsection{Variants}
 
-It exists some variants of the DES cipher, destined to lessen its flaw against brute force attacks. The two most known are 3DES (or "Triple DES" ) and DESx. \\
+It exists some variants of the DES cipher, destined to lessen its flaw against brute force attacks. The two most known are 3DES (or ``Triple DES'' ) and DESx. \\
 The 3DES is really straightforward : it's 3 DES ciphers in cascade. It has been designed to prevent exhaustive search attacks by expanding the key space necessary to compute. Since it use the same DES block, it is a fairly inexpensive (in terms of dev times or parts) upgrade from DES which bring a good layer of security.
 The DESx cope up with brute force by using the key whitening technique : on top of the 56-bit key used for the DES cipher, the DESx uses also two 64-bit keys $K_1$ and $K_2$. The key $K_1$ is xor'ed with the plaintext before going through the DES cipher, while the key $K_2$ is xor'ed with the DES output to give the ciphertext. This more complex design makes the DESx more difficult tot crack by brute force attacks, as well as linear and differential attacks.
 
@@ -338,30 +338,13 @@ The AES cipher is the next generation of standard encryption, replacing DES. It 
 
 The AES implementation follow the same architecture as DES : an initial permutation (AddRoundKey), several rounds which apply the same macro function ( SubBytes - ShiftRow - MixColumns - AddRoundKey ) and a final transformation (SubBytes - ShiftRow - AddRoundKey). The 4 sub-routines has been designed to present the minimal bias at system level.
 
-\subsection{Cipher Block Chain construction (CBC)}
 
 
 
-\begin{mytheorem}[CBC Semantic Security]
-   $\forall L>0$, if E is a secure PRP over (K,X), \\
-   then $E_{CBC}$ is a semantically secure cipher under CPA over $(K,X^L,X^{L+1})$. \\
- 	Moreover : $Adv_{CPA}[A,E_{CBC}] \leq 2.Adv_{PRP}[B,E] + 2.\frac{q^2.L^2}{|X|} $. \footnote{where q is the number of messages encrypted using the key k, and L the length of the messages.}
-\end{mytheorem}
-
-\subsubsection{Construction with a Nonce-based IV}
-
-\subsection{Randomized Counter Mode construction (CTR)}
 
 
-\subsubsection{Theorem}
 
-$\forall L>0$, if F is a secure PRF over (K,X), then $E_{CTR}$ is a semantically secure cipher under CPA over $(K,X^L,X^{L+1})$.
 
-$Adv_{CPA}[A,E_{CTR}] \leq 2.Adv_{PRP}[B,F] + 2.q^2.L/|H| $
-q : nb of messages encrypted using key k
-H : length of the message
-
-CTR construction is a bit better than CBC since the advantage is linear in the message's length (for CBC it is squared) and the algorithm is parallel (whereas it's sequential for CBC) which is easier to speed up (using FPGA or ASIC).
 
 
 

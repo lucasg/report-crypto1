@@ -1,15 +1,15 @@
 \chapter{Key Exchange Protocols}
 
-This chapter will focus on the communication aspect of cryptography, and more exactly on the initialisation part which contains the key-exchange protocols. As we seen in the last two chapters, it exists robust systems to ensure the confidentiality and integrity of data transitions against eavesdropping and active attackers (given that those systems were correctly implemented). However, these mechanisms does not describe how the two actors (generally called Alice and Bob) create a shared secret used to encrypt data. \\
+This chapter will focus on the initialisation aspect of cryptography, and more exactly on the part which contains the key-exchange protocols. As we seen in the last two chapters, there are robust systems to ensure confidentiality and integrity of data communication against eavesdropping and active attackers (given  those systems were correctly implemented). However, these mechanisms does not describe how the two actors (generally called Alice and Bob) create a shared secret (i.e. key) used to encrypt data. \\
 Key-exchange protocol is the last part of Coursera Cryptography I class and it's more detailed in the second class.
 
 \section{Trusted 3rd party}
 
-The straight-up method of key-exchange between two parties (or more) is to use a third one as proxy. Each party gives their secret key to the TTP and, in return gives a shared one. While having many implementations (notary for wills and contract, Paypal for money transactions, certifications authorities (CA) ...) this procedure does not add security since it create a single point of failure (e.g. the TTP being pwn'ed) and the "trusted" part is sometimes false (as seen with the NSA leak ) : that's why it is preferable to look at zero-knowledge protocols for key exchange.
+The most straightforward method for key exchange between two parties (or more) is to use a third one as proxy/notary. Each party gives their secret key to the TTP\footnote{Trusted Third Party} and, in return gives a shared one. While having many implementations (notary for wills and contract, Paypal for money transactions, certifications authorities (CA) ...) this procedure is not completely secure since it create a single point of failure (e.g. the TTP being pwn'ed) and the ``trusted'' part is sometimes false (as seen with the NSA leak ) : that's why it is preferable to look at zero-knowledge protocols for key exchange.
 
 
 \section{Merkle Puzzles}
-Merkle puzzles has been developed as a way to exchange keys using a generic symmetric cipher between two persons without a third-party. It's constructed upon a "puzzle", which means a computational difficult problem.\footnote{I will not try to define what is a "difficult" computational problem, look at NP-hard problems.} \\
+Merkle puzzles has been developed as a way to exchange keys using a generic symmetric cipher between two persons without a third-party. It's constructed upon a ``puzzle'', which means a computational difficult problem.\footnote{I rather not try to define what a ``difficult'' computational problem means, let's say it's more or less NP-hard problems.} \\
 As usual , we are in a situation of security against eavesdropping ( Merkle puzzles are insecure against active attacks such as AP poisoning ). Eve wants to retrieve the shared key that will be use for data transmission, and can only listen the communications between Alice and Bob. \\
 
 Steps for key-exchange using Merkle puzzles :
@@ -22,11 +22,11 @@ Steps for key-exchange using Merkle puzzles :
 
 \paragraph{Complexity}
 
-The strength of the Merkle puzzle scheme lies in the asymmetry of the problem. Let a Merkle Puzzle be of complexity linear $O(m)$.  Alice send n puzzles to Bob which solves one so Bob need $O(n+m)$ time computation. Bob sending back an identifier, Alice only need to solve one puzzle, thus $O(n+m)$ too. However, Eve needs to solve "all" (until the identifier is found) puzzles, so $O(n*m)$ : Alice and Bob needs linear time computation, while Eve needs quadratic time.\\
+The strength of the Merkle puzzle scheme lies in the asymmetry of the problem. Let a Merkle Puzzle be of complexity linear $O(m)$.  Alice send n puzzles to Bob which solves one so Bob need $O(n+m)$ time computation. Bob sending back an identifier, Alice only need to solve one puzzle, thus $O(n+m)$ too. However, Eve needs to solve ``all'' (until the identifier is found) puzzles, so $O(n*m)$ : Alice and Bob needs linear time computation, while Eve needs quadratic time.\\
 
 While being quite useful, the best gap in complexity provided by Merkle Puzzles is quadratic at best : for many real-world cases it is not enough\footnote{Merkle Puzzles are also vulnerable to quantum computation}. That's why exponential time gap scheme has been created (by Diffie and Hellman or RSA). 
 
-\section{Diffie-Hellman protocol}
+\section{Public Key Encryption}
 
 The public key encryption class regroup a list of ciphers useful for key-exchange. They all rely on the same idea as Merkle Puzzle's, meaning finding a problem which is exponentially harder to solve than checking if a solution is a valid one.
 
@@ -50,7 +50,6 @@ This exchange is secure against eavesdropping, but not against Man-in-the-Middle
 As seen previously the Diffie-Hellman protocol gives a secure way for two parties to exchange a secret. What about more than two people ? Unfortunately, this a currently an open problem \footnote{there is nonetheless a simple solution for 3 parties.} : there is no efficient way to create a multi-party shared secret.
 
 
-\section{Public Key Encryption}
 
 % 3 tools : 
 % Asymmetric encryption for key-exchange : ( G, F, F-1 )
@@ -68,7 +67,7 @@ As seen previously the Diffie-Hellman protocol gives a secure way for two partie
 
 \paragraph{Trapdoor Functions}
 
-RSA encryption relies heavily on trapdoor functions for security. Trapdoor functions - or "one-way functions" - are easily computable in one direction, yet difficult in the other one \footnote{"easy" and "hard" does not have any formal meaning, we just look at difficulty from a empirical point-of-view}. \\
+RSA encryption relies heavily on trapdoor functions for security. Trapdoor functions - or ``one-way functions'' - are easily computable in one direction, yet difficult in the other one \footnote{``easy'' and ``hard'' does not have any formal meaning, we just look at difficulty from a empirical point-of-view}. \\
 
 In cryptography, a trapdoor function is a triplet $(G, F, F_{-1})$ where :
 \begin{itemize}
@@ -105,7 +104,7 @@ El Gamal use Diffie-Hellman protocol to create a secure public-key protocol. It'
 
 \paragraph{Definition \\}
 
-ElGamal is built from a cyclic finite group $G$ ( $\mathbb{Z}_p^*$ for example, with p a "big" prime number ) : let $g$ be a generator\footnote{a generator g can build the set G only from it's geometric sequence : ${g^i, i\in N} == G$.}  of $G$. Like any other authenticated encryption system, it has a symmetric cipher $(E,D)$ for encryption and a hash function $H$ for integrity.
+ElGamal is built from a cyclic finite group $G$ ( $\mathbb{Z}_p^*$ for example, with p a ``big'' prime number ) : let $g$ be a generator\footnote{a generator g can build the set G only from it's geometric sequence : ${g^i, i\in N} == G$.}  of $G$. Like any other authenticated encryption system, it has a symmetric cipher $(E,D)$ for encryption and a hash function $H$ for integrity.
 
 \paragraph{Key Generation :}
  Alice and Bob choose respectively a and b from the set of powers used to generate $G$, and send to the other party resp. $g^a$ and $g^b$ which are used in the Diffie-Hellman protocol. 

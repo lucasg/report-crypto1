@@ -2,7 +2,7 @@
 
 
 \section{Exhaustive Search Attack}
-    The Exhaustive search attack, or brute-force attack, is to try every key possible until we retrieve the plaintext message. Although very crude and somewhat inefficient, some ciphers are unfortunately weak against it: the DES is one of them.
+    The Exhaustive search attack, or brute-force attack, is to try every key possible until we retrieve the plaintext message (i.e. finding the secret key). Although it's a very crude and somewhat inefficient vector attack, some ciphers are unfortunately weak against it: the DES is one of them.
     
 \paragraph{Definition :}
 Given $(m_i,c_i)$ in $\llbracket 1,N \rrbracket$(with N a small integer), find key k.
@@ -11,7 +11,7 @@ Given $(m_i,c_i)$ in $\llbracket 1,N \rrbracket$(with N a small integer), find k
 The aim of the DES Challenge is to find the secret key given three messages and their encryption. It was organized by the RSA company, to demonstrate the vulnerability of DES (the good ol' naming and shaming technique ).
 
 \begin{description}
-\item[1997 : ] 3 months using Internet-distributed computation ("cloud" computing)
+\item[1997 : ] 3 months using Internet-distributed computation (``cloud'' computing)
 \item[1998 : ] 3 days using EFF\footnote{Electronic Frontier Foundation : a NGO focusing on net freedom}'s deep crack machine.
 \item[1999 : ] 22 hours
 \item[2006 : ] 7 days using 10k\$'s FPGAs.
@@ -34,7 +34,7 @@ The attacker can respectively encrypt/decrypt any plaintext/cyphertext message a
 The attacker can iterate the encryption/decryption based on the previous result (used for linear and differential attacks).
 
 \section{Side-channel attacks}
-Side-channel attacks are "real-world" attacks, i.e. they don't rely on theoretical cryptographic knowledge but rather the implementation of ciphers. \footnote{ They are considered "inelegant", but the result is what matters, is it not ?}
+Side-channel attacks are ``real-world'' attacks, i.e. they don't rely on theoretical cryptographic knowledge but rather the implementation of ciphers (buffer overflows, hardware failure, timing attacks, etc.). \footnote{ They are considered ``inelegant'', but the result is what matters, is it not ?}
 
 \paragraph{Attack on the implementation \\}
 Some perfectly secure ciphers can be compromised if they are implemented in the wrong way : buffer overflows on user input, stack overflows, information leaking, insufficient entropy, ...   
@@ -48,7 +48,7 @@ This attack is a follow up of the previous ones : by using laser to provoke run-
 \section{Meet in the middle attacks}
 
 \paragraph{Definition\\}
-The MITM attacks is a generic cryptoanalysis used originally to break n-rounds block ciphers. Given the ability to encrypt and decrypt any data, the attacker will try to find the encryption of a certain plaintext which match the decryption of another certain cyphertext. In others words, the encryption and decryption algorithm does each one half of the work and "meet".
+The MITM attacks is a generic cryptoanalysis used originally to break n-rounds block ciphers. Given the ability to encrypt and decrypt any data, the attacker will try to find the encryption of a certain plaintext which match the decryption of another certain cyphertext. In others words, the encryption and decryption algorithm does each one half of the work and ``meet''.
 
 \begin{mydef}[Meet in the middle Attack :]
 b \newline
@@ -60,7 +60,7 @@ b \newline
 
 \paragraph{Example}
 
-A famous example which validate the theory of "more rounds equal better security" is the double-DES : once demonstrated that DES is insecure, they tried to update the standard without changing everything by simply cascading a DES into another one, using two separate keys. However, 2-DES is badly vulnerable from MITM attacks.
+A famous example which validate the theory of ``more rounds equal better security'' is the double-DES : once demonstrated that DES is insecure, they tried to update the standard without changing everything by simply cascading a DES into another one, using two separate keys. However, 2-DES is badly vulnerable from MITM attacks.
 
 \begin{mydef}[Challenge :]
 b \newline
@@ -81,7 +81,7 @@ Since $k_1$ and $k_2$ are independent keys, we have : $E(k_2,m) = x = D(k_1,m) $
 
 Quantum attacks are based on quantum computing. Unlike classical computers, quantum computers take advantage of quantum state superposition and entanglement to speed up solving time of equations, especially when combinatory calculus are present.
 
-\paragraph{ Generic Search Problem}
+\paragraph{Generic Search Problem}
 
 \begin{mydef}
 \begin{minipage}[t]{0.8\textwidth}
@@ -94,12 +94,12 @@ On classical computer, the best generic solver is linear ( $O(|X|)$ ) whereas on
 
 
 \paragraph{ Consequences } 
-The practical consequence of quantum computing over cryptography is to halve the key space : a way to prevent ciphers from quantum attacks is to double the key space ( a 1024-key RSA cipher is as strong against quantum computers as a 512-key RSA cipher against classical computers).
+The practical consequence of quantum computing over cryptography is to halve the key space : a way to prevent ciphers from quantum attacks is to double the key space ( a 1024-key RSA cipher is as strong against quantum computers as a 512-key RSA cipher against classical computers). Anyway, quantum attacks are already studied and prevented (see \url{http://pqcrypto.org/} ).
 
 
 \section{Collision attacks}
 
-When talking about collision resistance, it is important to speak about the Birthday Paradox which stipulates that there are way more random collisions than you would guess.
+When talking about data integrity and resistance to tampering, it is important to speak about the Birthday Paradox( which stipulates that there are way more random collisions than you would guess).
 
 \subsection{Generic Birthday attacks}
 
@@ -115,26 +115,29 @@ Intuitively, we would think that the odds grow linearly with the group's size wh
 \end{figure}
 
 \begin{mytheorem}[Birthday Paradox]
-Let $r_1,r_2,...r_n in {1,...B}$ n independent integers chosen uniformly, \\
+Let $r_1,r_2,...r_n in {1,...B}$ n independent integers chosen uniformly, 
 \begin{flushright}
 Then, when $n = 1.2\times B^{\frac{1}{2}}$, $Pr[collision] \geq \frac{1}{2} $
 \end{flushright}
 \end{mytheorem}
 
 The mathematical proof of this theorem is fairly simple : let compute the probability $Q(n,B)$ of not having a collision given n persons and B possible birthdays. Q can be seen as multiples draws without duplicates : \\
+
 \begin{align}
-    Q(n,B) =& 1 \times \frac{B-1}{B} \times ... \times \frac{B-n}{B} \\
-           =& \frac{B!}{(B-n)!*B^n} \\
+    Q(n,B)& = \quad 1 \times \frac{B-1}{B} \times ... \times \frac{B-n}{B} \\
+          & =\quad \frac{B!}{(B-n)!*B^n} 
 \end{align}  
 
+
+
 $P(n,B)$, the probability of having a birthday collision given n persons and B possible birth dates, is $Q(n,b)$ complement. \\
-Using Taylor series expansion we can rewrite $\frac{B-k}{B}$ as $e^{\frac{-k}{B}}$. 
+Using Taylor series expansion we can rewrite $\frac{B-k}{B}$ as $e^{\frac{-k}{B}}$.  
 
 \begin{align}
-    Q(n,B) =& \prod_{k = 0}^n e^{\frac{-k}{B}}      \\
-           =& e^{\sum_{k = 0}^n \frac{k}{B}}        \\
-           =& e^{ \frac{-(\frac{*n(n-1)}{2})}{B} }  \\
-    P(n,B) \simeq& 1 - e^{ \frac{-n^2}{2*B} }       
+    Q(n,B) =& \quad \prod_{k = 0}^n e^{\frac{-k}{B}}\\
+           =& \quad e^{\sum_{k = 0}^n \frac{k}{B}}        \\
+           =& \quad e^{ \frac{-(\frac{*n(n-1)}{2})}{B} }\\
+    P(n,B) \simeq& \quad 1 - e^{ \frac{-n^2}{2*B} }       
 \end{align}  
 
 
@@ -144,7 +147,7 @@ The attackers take advantage of the fact that a fairly low number of random gues
 
 \begin{figure}[ht!]
     \centering
-       \includegraphics[width=\textwidth]{images/dns_spoofing_birthday.jpg}
+       \includegraphics{images/dns_spoofing_birthday.jpg}
 	\caption{DNS Spoofing using multiple queries and Birthday Paradox \\ source : http://www.technicalinfo.net}
 	\label{fig:DNSSpoofingBirthday}
 \end{figure}
@@ -154,11 +157,11 @@ In order to do so, the attacker will send multiple queries : each DNS resolution
 
 \section{Social Attacks}
 
-Attacks target the weakest link of a system : sometimes it is the human nature the weakest link. This finding led to the famous "social engineering" attacks and the less known (but way more dangerous) rubberhose attacks.
+Attacks target the weakest link of a system : sometimes it is the human nature the weakest link. This finding led to the famous ``social engineering'' attacks and the less known (but way more dangerous) rubberhose attacks.
 
 \paragraph{Social Engineering}
 
-Social Engineering describe a motley crew of methods designed to "punching a hole" into a system from the inside, without informing the insider of what he has done. \\
+Social Engineering describe a motley crew of methods designed to ``punching a hole'' into a system from the inside, without informing the insider of what he has done. \\
 The most famous example is to leave some booby-trapped pendrives (and even more creative methods 
 \footnote{ A mouse device with modified firmware was sent as a gift to tech-based company employees for a security test : \url{ http://www.theregister.co.uk/2011/06/27/mission_impossible_mouse_attack/}.  }
 ) on the company site and hope for one employee to plug it in his workstation . Once it is plugged, the rigged pendrive which usually contains a Trojan, execute its script in order to obtain a privilege escalation from within the system and connect to the attacker then.\\\\
