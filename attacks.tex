@@ -5,7 +5,7 @@
     The Exhaustive search attack, or brute-force attack, is to try every key possible until we retrieve the plaintext message (i.e. finding the secret key). Although it's a very crude and somewhat inefficient vector attack, some ciphers are unfortunately weak against it: the DES is one of them.
     
 \paragraph{Definition :}
-Given $(m_i,c_i)$ in $\llbracket 1,N \rrbracket$(with N a small integer), find key k.
+Given $(m_i,c_i)$ in $\llbracket 1,N \rrbracket$ (with N a small integer), find key k.
 
 \paragraph{DES Challenge (by RSA)\\}
 The aim of the DES Challenge is to find the secret key given three messages and their encryption. It was organized by the RSA company, to demonstrate the vulnerability of DES (the good ol' naming and shaming technique ).
@@ -51,21 +51,19 @@ This attack is a follow up of the previous ones : by using laser to provoke run-
 The MITM attacks is a generic cryptoanalysis used originally to break n-rounds block ciphers. Given the ability to encrypt and decrypt any data, the attacker will try to find the encryption of a certain plaintext which match the decryption of another certain cyphertext. In others words, the encryption and decryption algorithm does each one half of the work and ``meet''.
 
 \begin{mydef}[Meet in the middle Attack :]
-b \newline
-\begin{minipage}[t]{0.8\textwidth}
-	Given (E,D) encryption/decryption system, \\
-    Find (m,c) such that : E(m) == D(c).
+\quad \newline
+\begin{minipage}[t]{\textwidth}
+\flushright Given (E,D) encryption/decryption system, find (m,c) such that : E(m) == D(c).
 \end{minipage}
 \end{mydef}
 
-\paragraph{Example}
 
-A famous example which validate the theory of ``more rounds equal better security'' is the double-DES : once demonstrated that DES is insecure, they tried to update the standard without changing everything by simply cascading a DES into another one, using two separate keys. However, 2-DES is badly vulnerable from MITM attacks.
+A famous example which invalidate the theory of ``more rounds equal better security'' is the double-DES : once demonstrated that DES is insecure, they tried to update the standard without changing everything by simply cascading a DES into another one, using two separate keys. However, 2-DES is badly vulnerable from MITM attacks.
 
 \begin{mydef}[Challenge :]
-b \newline
-\begin{minipage}[t]{0.9\textwidth}
-	Given (m,c), find $k = (k_1,k_2)$ such that $E(k_1,E(k_2,m)) == c$
+\quad \newline
+\begin{minipage}[t]{\textwidth}
+\flushright	Given (m,c), find $k = (k_1,k_2)$ such that $E(k_1,E(k_2,m)) == c$
 \end{minipage}
 \end{mydef}
 
@@ -86,7 +84,7 @@ Quantum attacks are based on quantum computing. Unlike classical computers, quan
 \begin{mydef}
 \begin{minipage}[t]{0.8\textwidth}
     Let $f : X \rightarrow {0,1}$ a generic oracle, \\
-  	Generic Search Problem : find $x \in X$ such as $ f(x) == true $.
+  	Find $x \in X$ such as $ f(x) == true $.
 \end{minipage}
 \end{mydef}
 
@@ -115,10 +113,8 @@ Intuitively, we would think that the odds grow linearly with the group's size wh
 \end{figure}
 
 \begin{mytheorem}[Birthday Paradox]
-Let $r_1,r_2,...r_n in {1,...B}$ n independent integers chosen uniformly, 
-\begin{flushright}
-Then, when $n = 1.2\times B^{\frac{1}{2}}$, $Pr[collision] \geq \frac{1}{2} $
-\end{flushright}
+Let $r_1,r_2,...r_n in {1,...B}$ n independent integers chosen uniformly, \flushright Then, when $n = 1.2\times B^{\frac{1}{2}}$, $Pr[collision] \geq \frac{1}{2} $
+
 \end{mytheorem}
 
 The mathematical proof of this theorem is fairly simple : let compute the probability $Q(n,B)$ of not having a collision given n persons and B possible birthdays. Q can be seen as multiples draws without duplicates : \\
@@ -145,14 +141,14 @@ Using the previous relation, we can easily compute $P(n,B) \geq 0.5$ and find th
 
 The attackers take advantage of the fact that a fairly low number of random guess have a reasonable chance for one of them of being correct. For example, there was a DNS spoofing method using it : \\
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
     \centering
        \includegraphics{images/dns_spoofing_birthday.jpg}
 	\caption{DNS Spoofing using multiple queries and Birthday Paradox \\ source : http://www.technicalinfo.net}
 	\label{fig:DNSSpoofingBirthday}
 \end{figure}
 
-The attacker's aim is to trick the DNS cache server into thinking that the IP of www.mybank.com is the spoofed server's one, not the real one. This attack is used for phishing : as soon as the DNS cache server is compromised, users connecting to www.mybank.com will send their credentials to the attackers. \\
+The attacker's aim is to trick the DNS cache server into thinking that the IP of \linebreak www.mybank.com is the spoofed server's one, not the real one. This attack is used for phishing : as soon as the DNS cache server is compromised, users connecting to www.mybank.com will send their credentials to the attackers. \\
 In order to do so, the attacker will send multiple queries : each DNS resolution is accompanied with a transaction ID which identify the query. The attacker's goal is to send resolution answers from this server with the correct transaction ID. The spoofed server send multiple resolution answers with random transaction ID. Since a DNS transaction ID is coded on 2 bytes, the pool of ID is no larger than 65535 : the birthday theorem stipulate that, with $n = 1.2 * \frac{\sqrt{65535}}{2}  = 153$  \footnote{ $n$ resolution queries$ + n$ answers $= 2*n$ total queries where looking for collision }queries, the attack has a 50\% chance of success\footnote{with 400 queries, the probability is over 99\%}. To further improve the probability of success, the attacker can also cripple the other server (the real one) with DDOS or bad routed packets in order to prevent him from sending a correct DNS resolution answer.
 
 \section{Social Attacks}

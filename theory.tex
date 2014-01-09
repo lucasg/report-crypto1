@@ -65,7 +65,7 @@ A pseudorandom function is secure if an attacker cannot solve the following game
 	\centering
 		\includegraphics[width=0.7\textwidth]{secure-PRF.png}
 	\caption{indistinguishability game for PRF}
-	\label{fig:Cipher}
+	\label{fig:IND-Game-PRF}
 \end{figure}
 
 Let b a binary value and $F: X\times K \rightarrow Y$  a PRF from $X$ to $Y$. If $b$ is null, the oracle will chose a random key $k\in K$, otherwise it will choose a complete random function $f:X->Y$. Then the adversary A submit one or several value(s) $x_i \in X$ and get the result $y_i \in Y$, from either the pseudo-random function or the randomly chosen one (according to the value of $b$). The attacker must find which function the oracle used, and if it find it with an advantage(see \ref{sec:advantage}), the PRF is considered insecure.
@@ -86,7 +86,7 @@ A major propriety of the PRP (comparatively to the PRF) is that the PRP can be i
 	\centering
 		\includegraphics[width=0.7\textwidth]{secure-PRP.png}
 	\caption{indistinguishability game for PRP}
-	\label{fig:Cipher}
+	\label{fig:IND-Game-PRP}
 \end{figure}
 
 The challenge for PRP is not much different from the one on PRF : see \ref{sec:IND-Game-PRF}.
@@ -100,7 +100,7 @@ A pseudo random generator (PRG) is a deterministic bit generator with the proper
 \begin{mydef}
 $ G : \llbracket  0,1 \rrbracket ^s -> \llbracket  0,1 \rrbracket ^n $  with  $n>>s$. 
 
-\flushright	 $S = \llbracket  0,1 \rrbracket ^s$ is often called ``the seed'' and is randomly chosen. 
+\small	( $S \in \llbracket  0,1 \rrbracket ^s$ is often called ``the seed'' and is randomly chosen.) 
 
 \end{mydef}
 
@@ -129,7 +129,7 @@ In layman terms, perfect secrecy means that, given two messages and the cipherte
 
 \subsection{Semantic Security}
 
-The semantic security is a weaker form of Shannon's perfect secrecy (which is not usable in reality) : the distributions $P_1 = Pr[E(k,m_1) = c , k<- K]$ and $P_2$ does not have to be equal, just computationally equivalent.
+The semantic security is a weaker form of Shannon's perfect secrecy (which is not usable in reality) : the distributions $P_1 = Pr[E(k,m_1) = c , k\in K]$ and $P_2$ does not have to be equal, just computationally equivalent.
 
 \paragraph{Challenge}
 The semantic security is often defined using a ``challenge'' : an experiment of though where and adversary has to find an important information given a certain protocol and certain rights. The challenge is the following one :
@@ -163,7 +163,7 @@ The $CCA$ assumption allow the attacker a wide range of access to information : 
 
 \subsection{Secure MAC}
 
-The challenge used to define MAC security is a bit different from the one for semantic security : the challenger choose a key randomly. The attacker can submit $n$ messages $m_i$ and receive their corresponding tags $t_i$. Then he can submit \underline{a new} forged message-tag pair $(m,t)$ which will be verified by the challenger. If the challenger certified the pair to be true, the MAC protocol is considered insecure, otherwise it is secure.
+The challenge used to define MAC security is a bit different from the one for semantic security : the challenger choose a key randomly. The attacker can submit $n$ messages $m_i$ and receive their corresponding tags $t_i$. Then he can submit a \underline{new} forged message-tag pair $(m,t)$ which will be verified by the challenger. If the challenger certified the pair to be true, the MAC protocol is considered insecure, otherwise it is secure.
 
 \begin{figure}[ht!]
 	\centering

@@ -9,12 +9,12 @@ Cryptography is the study of ways of secure communications in presence of advers
 \section{Definitions}
 
 \begin{flalign*}
-\emph{Encoder : }  &E : KxM \mapsto C  \\
-\emph{Decoder : }  &D : KxC \mapsto M  \\ 
+\emph{Encoder : }  &E : K\times M \mapsto C  \\
+\emph{Decoder : }  &D : K\times C \mapsto M  \\ 
 \emph{Equality : } &D(k, E(k,m) ) = m  
 \end{flalign*}
 
-The encoder E maps a message m into the ciphertext space using a parameter k (which is the secret key) and the decipher D does the reverse, using \underline{the same key k} to reveal the original message. E is often randomized (see \ref{sec:randomization} ) whereas D is always deterministic. A cipher consist of the encoder and decoder : cipher $=$ $(E,D)$.
+The encoder E maps a message m into the ciphertext space using a parameter k (which is the secret key) and the decipher D does the reverse, using \underline{the same key k} to reveal the original message. E is often randomised (see \ref{subsec:randomisation} ) whereas D is always deterministic. A cipher consist of the encoder and decoder : cipher $=$ $(E,D)$.
 
 \begin{figure}[ht!]
 	\centering
@@ -39,12 +39,16 @@ One way to ensure confidentiality is to outsource the task to a third party whic
 
 However, the trusted authority solution - like any centralized mechanism -  creates a single point of failure, so the trusted authority might not be always a good solution. \\
 
-\emph{Theorem} : Any computation done by trusted authority can be done without it.\\
+\begin{mytheorem}
+Any computation done by trusted authority can be done without it.
+\end{mytheorem}
 
 
 \subsection{ Zero proof of knowledge }
 
-\textit{Aim of cryptography} : prove that, under a certain threat vector, forge the signature comes to solve a NP-problem. \\
+\begin{mydef}[Aim of cryptography] 
+Prove that, under a certain threat vector, forge the signature comes to solve a NP-problem. \\
+\end{mydef}
 
 The definition of a NP-problem is that it is computationally ``hard'' to solve (non-deterministic polynomial time), but easy to verify a solution (called signature).
 
@@ -78,10 +82,9 @@ $output$&c&o&a&h&l&z&m&v&n&e&b&q&s&j&u&k&w&r&p&g&t&i&d&x&f&y \\
 	\label{tab:SubstitionTable}
 \end{table}
 
-\paragraph{Example of a encryption : }
+\paragraph{Example of a encryption : \\}
 
-
-\begin{table}[h!]
+\begin{table}[!ht]
     \centering
     \scalebox{0.75}{
 		\begin{tabular}{cccccccccccccccccccccccccccccc}
