@@ -1,20 +1,25 @@
 
-Theory : 
-	- write chapter introduction
-	- redo every schematics
+### Theory : 
+	- [ ] write chapter introduction
+	- [ ] redo every schematics
 
-Attacks :
-	- Linear attacks
-	- Differential attacks
+### Attacks :
+	- [ ] Linear attacks
+	- [ ] Differential attacks
 
 
-Ciphers:
+### Confidentiality:
 	
-	Mode of chaining : 
-		-> improve the graphs relative positions in the text
-		-> explain every mode 
+	- Mode of chaining : 
+		-> [ ] improve the graphs relative positions in the text
+		-> [ ] explain every mode 
 
 
-Misc : 
-	
-	Improve misc 
+### Integrity:
+	-
+
+### Key exchange :
+	- [ ] improve ECC section
+
+### Misc : 
+	- [ ] Improve misc sections 
