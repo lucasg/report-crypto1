@@ -3,6 +3,8 @@
 
 #Output Folder
 build
+build/*.pdf
+build/*.dvi
 
 #Latex temp files
 *.aux
